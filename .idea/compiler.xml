@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="commodity-server" />
+        <module name="eureka-registry" />
+        <module name="public-model" />
+        <module name="shop-server" />
+        <module name="static-resources" />
+        <module name="user-server" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

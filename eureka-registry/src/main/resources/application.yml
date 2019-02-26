@@ -1,0 +1,16 @@
+server:
+  port: 9020 #服务注册中心的端口
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:9020/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 5
+#  instance:
+#    status-page-url-path: ${management.context-path}/info
+#    health-check-url-path: ${management.context-path}/health

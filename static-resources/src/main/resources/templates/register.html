@@ -8,7 +8,7 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 	</head>
 	<body>
-		<form  method="post" name="registry">
+		<form  method="post" name="registry" action="/forward/login">
 		<div class="regist">
 			<div class="regist_center">
 				<div class="regist_top">
@@ -31,8 +31,8 @@
 					<div class="username">验&nbsp;&nbsp;证&nbsp;&nbsp;码:&nbsp;&nbsp;<input class="shurukuang" type="text" name="yzm" placeholder="验证码"/><span name="spanYzm" style="display: none"></span></div>
 
 				</div>
-				<div class="regist_submit" onclick="registry()">
-					<input class="submit" type="button" name="submit" value="立即注册" >
+				<div class="regist_submit">
+					<input class="submit" type="submit" onclick="registry2()" name="submit" value="立即注册" >
 				</div>
 				
 			</div>

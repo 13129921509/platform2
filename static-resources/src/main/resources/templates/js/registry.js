@@ -1,11 +1,11 @@
 
-function registry() {
+function registry2() {
     checkUsername();
     checkPassword();
     checkRePassword();
     checkTel();
     checkYzm();
-    checkRegistry();
+    checkRegistry();//首先解决js无法识别函数的问题
 }
 
 function checkYzm() {
@@ -182,7 +182,7 @@ function checkRegistry() {
     result = JSON.parse(html);
     if (result.code == 200){
         alert("注册成功,请登录!!!");
-        document.getElementsByName("registry")[0].action = "/forward/login";
-        document.getElementsByName("registry")[0].submit();
+        // document.getElementsByName("registry")[0].action = "/forward/login";
+        // document.getElementsByName("submit")[0].submit;
     }
 }

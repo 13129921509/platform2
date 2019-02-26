@@ -66,9 +66,6 @@ public class StaticController {
         }
     }
 
-    @PostMapping("/forward/{str}")
-    public String forwardLogin(Model model,@PathVariable String str){
-        return "forward:"+str+".html";
-    }
+
 
 }

@@ -1,4 +1,4 @@
-package com.cloud.userserver.config;
+package com.cloud.userserver.client;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
@@ -23,13 +23,23 @@ public class RedisClient {
         if(timeout != Long.valueOf(0)){
             stringRedisTemplate.opsForValue().set(key,String.valueOf(value),timeout,TimeUnit.MILLISECONDS);
             //Assert.assertEquals(String.valueOf(value),stringRedisTemplate.opsForValue().get(key));
+        }else{
+            stringRedisTemplate.opsForValue().set(key,String.valueOf(value));
         }
     }
     public void setObjectOfString(String key,Object value) throws InterruptedException {
         setObjectOfString(key,value,Long.valueOf(0));
     }
 
-    public String getObjectOfString(String key) throws InterruptedException {
+    public Object getObjectOfString(String key) throws InterruptedException {
         return stringRedisTemplate.opsForValue().get(key);
+    }
+
+    public void setObjectOfObject(String key,Object value){
+        redisTemplate.opsForValue().set(key,value);
+    }
+
+    public Object getObjectOfObject(String key){
+        return redisTemplate.opsForValue().get(key);
     }
 }

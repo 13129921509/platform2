@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class StaticController {
+public class RegistryController {
     @Autowired
     UserRegistryRemoteApi userRegistryRemoteApi;
     @RequestMapping("/")

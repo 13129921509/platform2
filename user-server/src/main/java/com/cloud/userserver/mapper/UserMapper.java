@@ -17,4 +17,7 @@ public interface UserMapper extends BaseMapper<RegistryUserEntity>{
 
     @Update("update from user_header ${ew.customSqlSegment}")
     void addRegistryUser(@Param(Constants.WRAPPER) Wrapper<RegistryUserEntity> wrapper);
+
+    @Select("select count(*) from user_header ${ew.customSqlSegment}")
+    int login(@Param(Constants.WRAPPER) Wrapper<RegistryUserEntity> wrapper);
 }

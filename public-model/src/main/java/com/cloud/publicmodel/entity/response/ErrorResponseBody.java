@@ -1,32 +1,37 @@
 package com.cloud.publicmodel.entity.response;
 
-public class ErrorResponseBody implements Result
+import java.io.Serializable;
+
+public class ErrorResponseBody implements Result,Serializable
 {
     /**
      * 错误内容
      */
-    private String error;
+    private String msg;
 
     /**
      * 自定义错误码
      */
     private int code;
 
+    public ErrorResponseBody(){
 
-    public ErrorResponseBody(String error, int code)
+    }
+
+    public ErrorResponseBody(String msg, int code)
     {
-        this.error = error;
+        this.msg = msg;
         this.code = code;
     }
 
-    public String getError()
+    public String getMsg()
     {
-        return error;
+        return msg;
     }
 
-    public void setError(String error)
+    public void setMsg(String error)
     {
-        this.error = error;
+        this.msg = error;
     }
 
     public int getCode()
@@ -40,7 +45,12 @@ public class ErrorResponseBody implements Result
     }
 
 
-    public enum ErrorCode{/**
+    public enum ErrorCode{
+        /**
+         * 账户与密码不匹配
+         */
+        ACCOUNT_DOES_NOT_MATCH_PASSWORD(40405),
+        /**
          * 验证码错误
          */
         VERIFICATION_CODE_ERROR(40404),

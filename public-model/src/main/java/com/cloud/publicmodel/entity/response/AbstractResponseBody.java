@@ -1,30 +1,23 @@
 package com.cloud.publicmodel.entity.response;
 
-import java.io.Serializable;
-
-public class SuccessResponseBody implements Result,Serializable{
-    /**
-     * 内容
-     */
+public class AbstractResponseBody implements Result{
     private String msg;
 
     private int code;
 
-    public SuccessResponseBody(){
+    public AbstractResponseBody(){
 
     }
 
-    public SuccessResponseBody(String success)
+    public AbstractResponseBody(String success,int code)
     {
         this.msg = success;
-        this.code = 200;
+        this.code = code;
     }
-
 
     public String getMsg() {
         return msg;
     }
-
 
     public void setMsg(String msg) {
         this.msg = msg;

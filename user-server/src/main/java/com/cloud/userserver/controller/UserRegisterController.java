@@ -1,15 +1,11 @@
 package com.cloud.userserver.controller;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cloud.publicmodel.entity.RegistryUserEntity;
-import com.cloud.publicmodel.entity.response.ErrorResponseBody;
-import com.cloud.userserver.config.RedisClient;
-import com.cloud.userserver.lisent.AnscyLisent;
+import com.cloud.userserver.client.RedisClient;
+import com.cloud.userserver.lisent.RegistryLisent;
 import com.cloud.userserver.mapper.UserMapper;
-import com.cloud.userserver.service.AnscyService;
 import com.cloud.userserver.service.MailService;
-import com.cloud.userserver.service.impl.MailServiceImp;
 import com.cloud.userserver.service.impl.UserServiceImp;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 public class UserRegisterController {
@@ -34,7 +29,7 @@ public class UserRegisterController {
     UserServiceImp userServiceImp;
 
     @Autowired
-    AnscyLisent anscyLisent;
+    RegistryLisent registryLisent;
 
     @Autowired
     AmqpTemplate amqpTemplate;
@@ -65,8 +60,8 @@ public class UserRegisterController {
      */
     @RequestMapping(value = "/comparisonregistrycode",method = RequestMethod.POST)
     public boolean comparisonregistrycode(@RequestBody Map map) throws InterruptedException {
-        String yzm = redisClient.getObjectOfString("registrycode:"+map.get("email"));
-        if (yzm.equals(map.get("yzm"))){
+        String yzm = (String) redisClient.getObjectOfString("registrycode:"+map.get("email"));
+        if (map.get("yzm").equals(yzm)){
             UpdateWrapper<RegistryUserEntity> wrapper= new UpdateWrapper<RegistryUserEntity>();
 //            userMapper.insert()
             return true;

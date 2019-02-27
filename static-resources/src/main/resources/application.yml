@@ -2,9 +2,13 @@ server:
   port: 9342
 spring:
   resources:
-    static-locations: classpath:/templates/
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/templates/
+  mvc:
+    static-path-pattern: /**
   application:
     name: static-resources
+  main:
+      allow-bean-definition-overriding: true
 eureka:
   instance:
     ip-address: true
@@ -25,5 +29,3 @@ ribbon:
   ConnectTimeout: 60000
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 1
-
-  #调试时开启

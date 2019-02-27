@@ -13,4 +13,6 @@ public class DirectConfig {
     }
     @Bean
     public Queue queue(){ return new Queue("registry-send-email"); }
+    @Bean
+    public Queue queue2(){ return new Queue("login-send-email"); }
 }

@@ -41,8 +41,8 @@ input:focus{border: 2px solid orange;}
 
 /*设置按钮样式*/
 .login .login_center .login_submit{margin: 15px auto;}
-.login .login_center .submit{border:none;width: 240px;height: 45px;margin-left:55px;background: #ff6700;color: #fff; font-size: 20px;font-weight: bold;letter-spacing: 2px;cursor:pointer;border-radius: 4px;}
-.login .login_center .submit:hover{border:1px solid #fff;}
+.login .login_center .submit1{border:none;width: 240px;height: 45px;margin-left:55px;background: #ff6700;color: #fff; font-size: 20px;font-weight: bold;letter-spacing: 2px;cursor:pointer;border-radius: 4px;}
+.login .login_center .submit1:hover{border:1px solid #fff;}
 
 
 /*用户注册*/
@@ -66,7 +66,6 @@ input:focus{border: 2px solid orange;}
 .regist_main .username span{display:inline-block;margin-left:20px;font-size: 12px;color: #ccc;font-weight: bold;}
 .regist_main .username span:hover{color: #ff6700;}
 
-.regist .regist_center .regist_submit{margin: 20px auto;}
 .regist .regist_center .submit{border:none;width: 440px;height: 45px;margin-left:45px;background: #ff6700;color: #fff; font-size: 22px;font-weight: bold;letter-spacing: 8px;cursor:pointer;}
 .regist .regist_center .submit:hover{border:1px solid #ccc;}
 

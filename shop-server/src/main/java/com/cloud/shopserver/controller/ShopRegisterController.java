@@ -1,12 +1,13 @@
-package com.cloud.userserver.controller;
+package com.cloud.shopserver.controller;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.cloud.publicmodel.entity.RegistryUserEntity;
 import com.cloud.publicmodel.client.RedisClient;
-import com.cloud.userserver.lisent.RegistryLisent;
-import com.cloud.userserver.mapper.UserMapper;
-import com.cloud.userserver.service.MailService;
-import com.cloud.userserver.service.impl.UserServiceImp;
+import com.cloud.publicmodel.entity.RegistryShopEntity;
+import com.cloud.publicmodel.entity.RegistryUserEntity;
+import com.cloud.publicmodel.impl.MailService;
+import com.cloud.shopserver.lisent.RegistryLisent;
+import com.cloud.shopserver.mapper.ShopMapper;
+import com.cloud.shopserver.service.ShopServiceImp;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class UserRegisterController {
+public class ShopRegisterController {
     @Autowired
     MailService mailService;
 
@@ -26,7 +27,7 @@ public class UserRegisterController {
     RedisClient redisClient;
 
     @Autowired
-    UserServiceImp userServiceImp;
+    ShopServiceImp shopServiceImp;
 
     @Autowired
     RegistryLisent registryLisent;
@@ -35,7 +36,7 @@ public class UserRegisterController {
     AmqpTemplate amqpTemplate;
 
     @Autowired
-    UserMapper userMapper;
+    ShopMapper shopMapper;
     /*
 
     1.数据库中比对，是由存在冲突信息，不存在则接着走
@@ -45,7 +46,7 @@ public class UserRegisterController {
     @RequestMapping(value = "/registrycode",method = RequestMethod.POST)
     public boolean registrycode(@RequestBody HashMap map) throws InterruptedException {
         String email = (String) map.get("email");
-        RegistryUserEntity entity = userServiceImp.getRegistryUser(email);
+        RegistryShopEntity entity = shopServiceImp.getRegistryUser(email);
         if (entity!=null){
             return false;
         }
@@ -62,7 +63,7 @@ public class UserRegisterController {
     public boolean comparisonregistrycode(@RequestBody Map map) throws InterruptedException {
         String yzm = (String) redisClient.getObjectOfString("registrycode:"+map.get("email"));
         if (map.get("yzm").equals(yzm)){
-            UpdateWrapper<RegistryUserEntity> wrapper= new UpdateWrapper<RegistryUserEntity>();
+            UpdateWrapper<RegistryShopEntity> wrapper= new UpdateWrapper<RegistryShopEntity>();
 //            userMapper.insert()
             return true;
         }else{
@@ -70,8 +71,8 @@ public class UserRegisterController {
         }
     }
 
-    @RequestMapping(value = "/user/registry",method = RequestMethod.PUT)
-    public void registry(@RequestBody RegistryUserEntity map){
-        userMapper.insert(map);
+    @RequestMapping(value = "/shop/registry",method = RequestMethod.PUT)
+    public void registry(@RequestBody RegistryShopEntity map){
+        shopMapper.insert(map);
     }
 }

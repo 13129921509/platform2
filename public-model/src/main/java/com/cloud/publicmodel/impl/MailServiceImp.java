@@ -1,6 +1,5 @@
-package com.cloud.userserver.service.impl;
+package com.cloud.publicmodel.impl;
 
-import com.cloud.publicmodel.impl.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,9 +23,10 @@ public class MailServiceImp implements MailService {
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText("您的验证码为:"+content);
         simpleMailMessage.setTo(to);
+
         try {
             sender.send(simpleMailMessage);
-            System.out.println("发送成功!!");
+            System.out.println("发送成功");
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("发送失败");

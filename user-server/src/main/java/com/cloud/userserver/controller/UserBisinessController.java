@@ -20,4 +20,9 @@ public class UserBisinessController {
         return serviceImp.getHttpClient("HttpClient:"+entity.getEmail());
 
     }
+
+    @RequestMapping(value = "/checkHealth",method = RequestMethod.GET)
+    public String checkHealth(){
+        return "123";
+    }
 }

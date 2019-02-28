@@ -5,11 +5,12 @@ function registry2() {
     checkRePassword();
     checkTel();
     checkYzm();
-    checkRegistry();//首先解决js无法识别函数的问题
+    checkRegistry(checkShopRegistry());//首先解决js无法识别函数的问题
 }
 
 function checkYzm() {
     var str = document.getElementsByName("yzm")[0].value;
+    var code;
     if (str == '') {
         document.getElementsByName("spanYzm")[0].style.display = "inline";
         document.getElementsByName("spanYzm")[0].innerHTML = "此项不能为空";
@@ -18,9 +19,14 @@ function checkYzm() {
     }else{
         document.getElementsByName("spanYzm")[0].style.display = "none";
     }
+    if (document.getElementsByName("shopway")[0] != undefined) {
+        code = "/shop/checkYzm";
+    }else{
+        code = "/checkYzm";
+    }
     var html = $.ajax({
         type: "POST",
-        url: "/checkYzm",
+        url: code,
         contentType:"application/json",
         dataType:"json",
         data: JSON.stringify({
@@ -136,9 +142,15 @@ function checkTel(input) {
 
 
 function getRegistrationCode() {
+    var code;
+    if (document.getElementsByName("shopway")[0] != undefined) {
+        code = "shop/registrycode";
+    }else{
+        code = "user/registrycode";
+    }
     var html = $.ajax({
         type: "POST",
-        url: "/registrycode",
+        url: code,
         contentType:"application/json",
         dataType:"json",
         data: JSON.stringify({
@@ -165,10 +177,10 @@ function getRegistrationCode() {
     }
 }
 
-function checkRegistry() {
+function checkRegistry(code) {
     var html = $.ajax({
         type: "POST",
-        url: "/user/registry",
+        url: code,
         contentType:"application/json",
         dataType:"json",
         data: JSON.stringify({
@@ -185,4 +197,15 @@ function checkRegistry() {
         // document.getElementsByName("registry")[0].action = "/forward/login";
         // document.getElementsByName("submit")[0].submit;
     }
+}
+
+
+
+function checkShopRegistry() {
+    if (document.getElementsByName("shopway")[0] != undefined){
+        return "/shop/registry";
+    }else {
+        return "/user/registry"
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.cloud.userserver.config;
+package com.cloud.publicmodel.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

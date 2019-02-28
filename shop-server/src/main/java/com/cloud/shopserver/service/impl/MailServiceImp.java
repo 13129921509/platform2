@@ -1,8 +1,9 @@
-package com.cloud.userserver.service.impl;
+package com.cloud.shopserver.service.impl;
 
 import com.cloud.publicmodel.impl.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -12,12 +13,14 @@ import org.springframework.stereotype.Component;
  * @date 2019/2/25
  */
 @Component
+@ComponentScan(basePackages = {"com.cloud.publicmodel"})
 public class MailServiceImp implements MailService {
     @Value("${spring.mail.username}")
     private String from;
 
     @Autowired
     private JavaMailSender sender;
+
     public void sendSimpleEmail(String to, String subject, String content) {
         SimpleMailMessage simpleMailMessage =  new SimpleMailMessage();
         simpleMailMessage.setFrom(from);
@@ -29,7 +32,7 @@ public class MailServiceImp implements MailService {
             System.out.println("发送成功!!");
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("发送失败");
+            System.out.println("发送失败!!");
         }
     }
 }

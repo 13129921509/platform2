@@ -1,4 +1,4 @@
-package com.cloud.userserver.config;
+package com.cloud.publicmodel.config;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.serializer.support.DeserializingConverter;

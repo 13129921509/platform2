@@ -1,4 +1,4 @@
-package com.cloud.userserver.config;
+package com.cloud.publicmodel.config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;

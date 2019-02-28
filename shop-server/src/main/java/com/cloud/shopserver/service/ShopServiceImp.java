@@ -1,15 +1,16 @@
-package com.cloud.userserver.service.impl;
+package com.cloud.shopserver.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.publicmodel.entity.LoginUserEntity;
+import com.cloud.publicmodel.entity.RegistryShopEntity;
 import com.cloud.publicmodel.entity.RegistryUserEntity;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.session.HttpClient;
-import com.cloud.publicmodel.client.RedisClient;
-import com.cloud.userserver.mapper.UserMapper;
+import com.cloud.shopserver.mapper.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @Component
 @Transactional
-public class UserServiceImp {
+public class ShopServiceImp {
     @Autowired
-    UserMapper userMapper;
+    ShopMapper shopMapper;
 
     @Autowired
     RedisClient redisClient;
@@ -30,9 +31,9 @@ public class UserServiceImp {
      * @param value email
      * @return
      */
-    public RegistryUserEntity getRegistryUser(String value){
+    public RegistryShopEntity getRegistryUser(String value){
         LambdaQueryWrapper<RegistryUserEntity> wrapper = new LambdaQueryWrapper<>();
-        RegistryUserEntity entity = userMapper.getRegistryUser(wrapper.eq(RegistryUserEntity::getEmail,value));
+        RegistryShopEntity entity = shopMapper.getRegistryUser(wrapper.eq(RegistryUserEntity::getEmail,value));
         return entity;
     }
 
@@ -44,9 +45,9 @@ public class UserServiceImp {
      * @throws InterruptedException
      */
     public String login(LoginUserEntity entity, HttpServletRequest request) throws InterruptedException {
-        LambdaQueryWrapper<RegistryUserEntity> wrapper = new LambdaQueryWrapper<>();
-        int count = userMapper.login(wrapper.eq(RegistryUserEntity::getEmail,entity.getEmail())
-                .eq(RegistryUserEntity::getPassword,entity.getPassword()));
+        LambdaQueryWrapper<RegistryShopEntity> wrapper = new LambdaQueryWrapper<>();
+        int count = shopMapper.login(wrapper.eq(RegistryShopEntity::getEmail,entity.getEmail())
+                .eq(RegistryShopEntity::getPassword,entity.getPassword()));
         if (count != 1){
             Result result = new ErrorResponseBody("账户与密码不匹配",ErrorResponseBody.ErrorCode.ACCOUNT_DOES_NOT_MATCH_PASSWORD.getCode());
             String jsonObject = JSONObject.toJSONString(result);
@@ -57,7 +58,7 @@ public class UserServiceImp {
             //request.getSession().setAttribute("key",new HttpClient(entity.getYzm(),entity.getEmail()));
             redisClient.setObjectOfObject("HttpClient:"+entity.getEmail(),new HttpClient(entity.getYzm(),entity.getEmail()));
             HttpClient client = (HttpClient) redisClient.getObjectOfObject("HttpClient:"+entity.getEmail());
-            Result result = new SuccessResponseBody("success!!!");
+            Result result = new SuccessResponseBody("success!!!!");
             String jsonObject = JSONObject.toJSONString(result);
             return jsonObject;
         }else{

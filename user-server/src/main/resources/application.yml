@@ -1,5 +1,7 @@
 server:
   port: 9021
+  servlet:
+    context-path: /
 spring:
   application:
     name: user-server

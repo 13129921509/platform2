@@ -1,12 +1,12 @@
-package com.cloud.userserver.controller;
+package com.cloud.shopserver.controller;
 
-import com.cloud.publicmodel.entity.LoginUserEntity;
-import com.cloud.publicmodel.entity.RegistryUserEntity;
 import com.cloud.publicmodel.client.RedisClient;
-import com.cloud.userserver.lisent.RegistryLisent;
-import com.cloud.userserver.mapper.UserMapper;
-import com.cloud.userserver.service.MailService;
-import com.cloud.userserver.service.impl.UserServiceImp;
+import com.cloud.publicmodel.entity.LoginUserEntity;
+import com.cloud.publicmodel.entity.RegistryShopEntity;
+import com.cloud.publicmodel.impl.MailService;
+import com.cloud.shopserver.lisent.RegistryLisent;
+import com.cloud.shopserver.mapper.ShopMapper;
+import com.cloud.shopserver.service.ShopServiceImp;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @RestController
-public class UserLoginController {
+public class ShopLoginController {
     @Autowired
     MailService mailService;
 
@@ -26,7 +26,7 @@ public class UserLoginController {
     RedisClient redisClient;
 
     @Autowired
-    UserServiceImp userServiceImp;
+    ShopServiceImp userServiceImp;
 
     @Autowired
     RegistryLisent registryLisent;
@@ -35,7 +35,7 @@ public class UserLoginController {
     AmqpTemplate amqpTemplate;
 
     @Autowired
-    UserMapper userMapper;
+    ShopMapper userMapper;
 
     /**
      * 获得验证码
@@ -46,7 +46,7 @@ public class UserLoginController {
     @RequestMapping(value = "/loginCode",method = RequestMethod.POST)
     public boolean loginCode(@RequestBody HashMap map) throws InterruptedException {
         String email = (String) map.get("email");
-        RegistryUserEntity entity = userServiceImp.getRegistryUser(email);
+        RegistryShopEntity entity = userServiceImp.getRegistryUser(email);
         if (entity==null){
             return false;
         }
@@ -55,7 +55,7 @@ public class UserLoginController {
         return true;
     }
 
-    @RequestMapping(value = "/user/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/shop/login",method = RequestMethod.POST)
     public String login(@RequestBody LoginUserEntity user, HttpServletRequest request) throws InterruptedException {
        return  userServiceImp.login(user,request);
     }

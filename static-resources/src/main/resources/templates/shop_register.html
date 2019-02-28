@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商家注册</title>
+		<link rel="stylesheet" type="text/css" href="./css/login.css">
+		<script type="text/javascript" src="js/registry.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+	</head>
+	<body>
+		<form  method="post" name="registry" action="/forward/login">
+		<div class="regist">
+			<div class="regist_center">
+				<div class="regist_top">
+					<div class="left fl">商家注册</div>
+					<div class="right fr"><a href="./index.html" target="_self">淘机网</a></div>
+					<div class="clear"></div>
+					<div class="xian center"></div>
+				</div>
+				<div class="regist_main center">
+					<div class="username">用&nbsp;&nbsp;户&nbsp;&nbsp;名:&nbsp;&nbsp;<input class="shurukuang" oninput="checkUsername(this)" type="text" name="username" placeholder="请输入你的用户名"/><span name="spanUsername" style="display: none">请不要输入汉字</span></div>
+					<div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;&nbsp;<input class="shurukuang" oninput="checkPassword(this)" type="password" name="password" placeholder="请输入你的密码"/><span name="spanPassword" style="display: none">请输入6位以上字符</span></div>
+
+					<div class="username">确认密码:&nbsp;&nbsp;<input class="shurukuang" oninput="checkRePassword()" type="password" name="repassword" placeholder="请确认你的密码"/><span name="spanRePassword" style="display: none">两次密码要输入一致哦</span></div>
+					<div class="username">手&nbsp;&nbsp;机&nbsp;&nbsp;号:&nbsp;&nbsp;<input class="shurukuang" oninput="checkTel()" type="text" name="tel" placeholder="请填写正确的手机号"/><span name="spanTel" style="display: none">填写下手机号吧，方便我们联系您！</span></div>
+					<div class="username">
+						<div class="left fl">邮&nbsp;&nbsp;箱:&nbsp;&nbsp;<input class="yanzhengma" type="text" name="email" placeholder="请输入邮箱"/></div>
+						<div class="right fl" onclick="getRegistrationCode()">获得注册码</div>
+						<div class="clear"></div>
+					</div>
+					<div class="username">验&nbsp;&nbsp;证&nbsp;&nbsp;码:&nbsp;&nbsp;<input class="shurukuang" type="text" name="yzm" placeholder="验证码"/><span name="spanYzm" style="display: none"></span></div>
+
+				</div>
+				<div class="regist_submit">
+					<input class="submit" type="submit" onclick="registry2()" name="submit" value="立即注册" >
+				</div>
+				
+			</div>
+		</div>
+		</form>
+	</body>
+	<input type="hidden" name="shopway">
+</html>

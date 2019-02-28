@@ -1,7 +1,7 @@
 package com.cloud.userserver.lisent;
 
 
-import com.cloud.userserver.client.RedisClient;
+import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.userserver.service.MailService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;

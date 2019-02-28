@@ -1,6 +1,6 @@
 package com.cloud.shopserver.service.impl;
 
-import com.cloud.publicmodel.impl.MailService;
+import com.cloud.shopserver.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;

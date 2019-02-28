@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan("com.cloud.userserver.mapper")
-@ComponentScan(basePackages = {"com.cloud.publicmodel"})
+@ComponentScan(basePackages = {"com.cloud.publicmodel.*","com.cloud.userserver.*"})
 public class UserServerApplication {
     @Bean
     @Profile({"default"})

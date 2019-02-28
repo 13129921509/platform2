@@ -1,11 +1,10 @@
-package com.cloud.shopserver.service;
+package com.cloud.shopserver.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.entity.RegistryShopEntity;
-import com.cloud.publicmodel.entity.RegistryUserEntity;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
@@ -32,8 +31,8 @@ public class ShopServiceImp {
      * @return
      */
     public RegistryShopEntity getRegistryUser(String value){
-        LambdaQueryWrapper<RegistryUserEntity> wrapper = new LambdaQueryWrapper<>();
-        RegistryShopEntity entity = shopMapper.getRegistryUser(wrapper.eq(RegistryUserEntity::getEmail,value));
+        LambdaQueryWrapper<RegistryShopEntity> wrapper = new LambdaQueryWrapper<>();
+        RegistryShopEntity entity = shopMapper.getRegistryUser(wrapper.eq(RegistryShopEntity::getEmail,value));
         return entity;
     }
 

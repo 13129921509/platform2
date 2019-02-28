@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableDiscoveryClient
 @EnableEurekaClient
-@ComponentScan(basePackages = {"com.cloud.publicmodel"})
+@ComponentScan(basePackages = {"com.cloud.publicmodel","com.cloud.shopserver.*"})
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan("com.cloud.shopserver.mapper")

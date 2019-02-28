@@ -2,7 +2,7 @@ package com.cloud.shopserver.lisent;
 
 
 import com.cloud.publicmodel.client.RedisClient;
-import com.cloud.publicmodel.impl.MailService;
+import com.cloud.shopserver.service.MailService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

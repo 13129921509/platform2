@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface ShopMapper extends BaseMapper<RegistryShopEntity> {
     @Select("select * from shop_header ${ew.customSqlSegment}")
-    RegistryShopEntity getRegistryUser(@Param(Constants.WRAPPER) LambdaQueryWrapper<RegistryUserEntity> wrapper);
+    RegistryShopEntity getRegistryUser(@Param(Constants.WRAPPER) LambdaQueryWrapper<RegistryShopEntity> wrapper);
 
     @Update("update from shop_header ${ew.customSqlSegment}")
     void addRegistryUser(@Param(Constants.WRAPPER) Wrapper<RegistryShopEntity> wrapper);

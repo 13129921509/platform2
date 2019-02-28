@@ -14,6 +14,11 @@ function getRegistrationCode() {
         str.focus();
         return ;
     }
+    if (document.getElementsByName("shopway")[0] != undefined){
+        return "/shop/registry";
+    }else {
+        return "/user/registry"
+    }
     email = document.getElementsByName("email")[0];
     var html = $.ajax({
         type: "POST",

@@ -2,7 +2,7 @@ package com.cloud.shopserver.controller;
 
 import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.session.HttpClient;
-import com.cloud.shopserver.service.ShopServiceImp;
+import com.cloud.shopserver.service.impl.ShopServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

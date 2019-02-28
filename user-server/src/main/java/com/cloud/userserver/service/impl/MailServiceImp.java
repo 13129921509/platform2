@@ -1,6 +1,6 @@
 package com.cloud.userserver.service.impl;
 
-import com.cloud.publicmodel.impl.MailService;
+import com.cloud.userserver.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;

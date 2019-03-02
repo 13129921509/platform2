@@ -4,10 +4,7 @@ import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.userserver.service.impl.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -25,4 +22,5 @@ public class UserBisinessController {
     public String checkHealth(){
         return "123";
     }
+
 }

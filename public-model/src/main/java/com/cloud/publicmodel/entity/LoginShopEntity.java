@@ -4,6 +4,7 @@ public class LoginShopEntity {
     String email;
     String password;
     String yzm;
+    String shopCode;
 
     public String getEmail() {
         return email;
@@ -27,5 +28,13 @@ public class LoginShopEntity {
 
     public void setYzm(String yzm) {
         this.yzm = yzm;
+    }
+
+    public String getShopCode() {
+        return shopCode;
+    }
+
+    public void setShopCode(String shopCode) {
+        this.shopCode = shopCode;
     }
 }

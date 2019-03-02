@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="commodity-server" />
         <module name="eureka-registry" />
+        <module name="order-server" />
         <module name="public-model" />
         <module name="shop-server" />
         <module name="static-resources" />

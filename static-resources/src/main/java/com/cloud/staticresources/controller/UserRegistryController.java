@@ -17,10 +17,6 @@ import java.util.Map;
 public class UserRegistryController {
     @Autowired
     UserRegistryRemoteApi userRegistryRemoteApi;
-    @RequestMapping("/")
-    public String index(Model model) {
-        return "/index.html";
-    }
 
     /**
      * 设置注册码

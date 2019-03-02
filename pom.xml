@@ -11,6 +11,7 @@
         <module>public-model</module>
         <module>commodity-server</module>
         <module>static-resources</module>
+        <module>order-server</module>
     </modules>
     <groupId>com.cloud</groupId>
     <artifactId>platform</artifactId>

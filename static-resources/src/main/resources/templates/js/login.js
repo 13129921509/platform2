@@ -5,6 +5,7 @@
  * 3.验证码不能为空，验证码必须正确
  */
 function getRegistrationCode() {
+    var src;
     str = document.getElementsByName("email")[0];
     if (str == '') {
         // document.getElementsByName("spanRePassword")[0].style.display = "inline";
@@ -15,14 +16,14 @@ function getRegistrationCode() {
         return ;
     }
     if (document.getElementsByName("shopway")[0] != undefined){
-        return "/shop/registry";
+        src = "/shop/loginCode";
     }else {
-        return "/user/registry"
+        src = "/loginCode"
     }
     email = document.getElementsByName("email")[0];
     var html = $.ajax({
         type: "POST",
-        url: "/loginCode",
+        url: src,
         contentType:"application/json",
         dataType:"json",
         data: JSON.stringify({
@@ -47,9 +48,15 @@ function checkLogin(){
         alert("账户或密码不能为空");
         return ;
     }
+    var src;
+    if (document.getElementsByName("shopway")[0] != undefined){
+        src = "/shop/login";
+    }else {
+        src = "/user/login";
+    }
     var html = $.ajax({
         type: "POST",
-        url: "/user/login",
+        url: src,
         contentType:"application/json",
         dataType:"json",
         data: JSON.stringify({

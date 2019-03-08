@@ -10,6 +10,8 @@ public class SuccessResponseBody implements Result,Serializable{
 
     private int code;
 
+    private Object rsp;
+
     public SuccessResponseBody(){
 
     }
@@ -18,6 +20,13 @@ public class SuccessResponseBody implements Result,Serializable{
     {
         this.msg = success;
         this.code = 200;
+    }
+
+    public SuccessResponseBody(String success,Object rsp)
+    {
+        this.msg = success;
+        this.code = 200;
+        this.rsp = rsp;
     }
 
 
@@ -36,5 +45,13 @@ public class SuccessResponseBody implements Result,Serializable{
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public Object getRsp() {
+        return rsp;
+    }
+
+    public void setRsp(Object rsp) {
+        this.rsp = rsp;
     }
 }

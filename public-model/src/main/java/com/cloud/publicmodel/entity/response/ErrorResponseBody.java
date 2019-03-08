@@ -47,6 +47,11 @@ public class ErrorResponseBody implements Result,Serializable
 
     public enum ErrorCode{
         /**
+         * 用户详细信息未定义
+         */
+        USER_DETAILS_UNDEFINED(40410),
+
+        /**
          * 账户与密码不匹配
          */
         ACCOUNT_DOES_NOT_MATCH_PASSWORD(40405),

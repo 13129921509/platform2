@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+@FeignClient("order-server")
 @Component
-@FeignClient("order-service")
 public interface OrderRemoteApi {
     /**
      * 通过order服务回传订单

@@ -1,5 +1,8 @@
 package com.cloud.publicmodel.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 public class LoginUserEntity {
     String email;
     String password;
@@ -28,4 +31,13 @@ public class LoginUserEntity {
     public void setYzm(String yzm) {
         this.yzm = yzm;
     }
+
+
+    public LoginUserEntity(String email, String password, String yzm) {
+        this.email = email;
+        this.password = password;
+        this.yzm = yzm;
+    }
+
+    public LoginUserEntity(){}
 }

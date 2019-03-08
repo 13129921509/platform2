@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserMapper extends BaseMapper<RegistryUserEntity>{
+public interface UserHeaderMapper extends BaseMapper<RegistryUserEntity>{
     @Select("select * from user_header ${ew.customSqlSegment}")
     RegistryUserEntity getRegistryUser(@Param(Constants.WRAPPER) Wrapper<RegistryUserEntity> wrapper);
 

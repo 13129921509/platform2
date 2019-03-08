@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cloud.publicmodel.entity.RegistryUserEntity;
 import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.userserver.lisent.RegistryLisent;
-import com.cloud.userserver.mapper.UserMapper;
+import com.cloud.userserver.mapper.UserHeaderMapper;
 import com.cloud.userserver.service.MailService;
 import com.cloud.userserver.service.impl.UserServiceImp;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -35,7 +35,7 @@ public class UserRegisterController {
     AmqpTemplate amqpTemplate;
 
     @Autowired
-    UserMapper userMapper;
+    UserHeaderMapper userMapper;
     /*
 
     1.数据库中比对，是由存在冲突信息，不存在则接着走

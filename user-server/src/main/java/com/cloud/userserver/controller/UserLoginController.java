@@ -1,10 +1,13 @@
 package com.cloud.userserver.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.entity.RegistryUserEntity;
 import com.cloud.publicmodel.client.RedisClient;
+import com.cloud.publicmodel.entity.UserDetailsEntity;
 import com.cloud.userserver.lisent.RegistryLisent;
-import com.cloud.userserver.mapper.UserMapper;
+import com.cloud.userserver.mapper.UserDetailMapper;
+import com.cloud.userserver.mapper.UserHeaderMapper;
 import com.cloud.userserver.service.MailService;
 import com.cloud.userserver.service.impl.UserServiceImp;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -33,10 +36,6 @@ public class UserLoginController {
 
     @Autowired
     AmqpTemplate amqpTemplate;
-
-    @Autowired
-    UserMapper userMapper;
-
     /**
      * 获得验证码
      * @param map 获得验证码所需的邮箱
@@ -59,4 +58,5 @@ public class UserLoginController {
     public String login(@RequestBody LoginUserEntity user, HttpServletRequest request) throws InterruptedException {
        return  userServiceImp.login(user,request);
     }
+
 }

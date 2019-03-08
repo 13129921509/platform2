@@ -2,19 +2,22 @@ package com.cloud.staticresources.controller;
 
 import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.entity.OrderEntity;
+import com.cloud.publicmodel.entity.UserDetailsEntity;
+import com.cloud.publicmodel.entity.response.ErrorResponseBody;
+import com.cloud.publicmodel.entity.response.Result;
+import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.publicmodel.util.FileUtil;
 import com.cloud.staticresources.remoteapi.BusinessRemoteApi;
 import com.cloud.staticresources.remoteapi.CommodityRemoteApi;
 import com.cloud.staticresources.remoteapi.OrderRemoteApi;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,20 +49,29 @@ public class BusinessController {
 
     /**
      *
-     * @param request
+     * @param
      * @return 返回一个<"商品名称":"商品图片地址"></>
-     * 未完成
+     *
      */
     @RequestMapping("/order/img")
-    public Map getOrderListImg(HttpServletRequest request){
-        List<OrderEntity> list = getOrder(request);
-        Map<String,String> imgMap = new HashMap<String, String>();
-        String realPath = request.getServletContext().getRealPath("/");
-//        File[] files = FileUtil.getFilesNameByPath(realPath);
-        for (OrderEntity entity : list){
-            String src = commodityRemoteApi.getOrderListImg(entity.getCommodityCode());
-            imgMap.put(entity.getCommodityName(),realPath+"/"+src);
+    public String getOrderListImg(HttpServletRequest request,@RequestBody OrderEntity orderEntity) throws URISyntaxException {
+        List<String> list = commodityRemoteApi.getOrderListImg(orderEntity.getCommodityCode());
+        return list.get(0);
+    }
+
+    /**
+     * 返回一个用户详细json
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/user/detail",method = RequestMethod.POST)
+    public Result userDetailsEntity(HttpServletRequest request){
+        LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
+        if (entity != null){
+            return new SuccessResponseBody("success",businessRemoteApi.userDetailsEntity(entity));
+        }else{
+            return new ErrorResponseBody("USER_DETAILS_UNDEFINED",ErrorResponseBody.ErrorCode.USER_DETAILS_UNDEFINED.getCode());
         }
-        return imgMap;
+//        return businessRemoteApi.userDetailsEntity(entity);
     }
 }

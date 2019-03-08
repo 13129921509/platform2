@@ -9,7 +9,7 @@ import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.publicmodel.client.RedisClient;
-import com.cloud.userserver.mapper.UserMapper;
+import com.cloud.userserver.mapper.UserHeaderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @Transactional
 public class UserServiceImp {
     @Autowired
-    UserMapper userMapper;
+    UserHeaderMapper userMapper;
 
     @Autowired
     RedisClient redisClient;

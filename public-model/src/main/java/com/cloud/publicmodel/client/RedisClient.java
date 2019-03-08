@@ -41,4 +41,13 @@ public class RedisClient {
     public Object getObjectOfObject(String key){
         return redisTemplate.opsForValue().get(key);
     }
+
+    public void setObjectOfHash(String key,Object value){
+        redisTemplate.opsForHash().put(key,redisTemplate.getHashKeySerializer().serialize(key),value);
+    }
+
+    public Object getObjectOfHash(String key){
+        return redisTemplate.opsForHash().get(key,redisTemplate.getHashKeySerializer().serialize(key));
+    }
+
 }

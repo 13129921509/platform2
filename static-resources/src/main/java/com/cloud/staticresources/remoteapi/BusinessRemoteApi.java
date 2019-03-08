@@ -1,6 +1,7 @@
 package com.cloud.staticresources.remoteapi;
 
 import com.cloud.publicmodel.entity.LoginUserEntity;
+import com.cloud.publicmodel.entity.UserDetailsEntity;
 import com.cloud.publicmodel.session.HttpClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -13,4 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface BusinessRemoteApi {
     @RequestMapping(value = "/httpclient",method = RequestMethod.POST)
     HttpClient getHttpClient(@RequestBody LoginUserEntity entity);
+
+    @RequestMapping(value = "/user/detail",method = RequestMethod.POST)
+    UserDetailsEntity userDetailsEntity(@RequestBody LoginUserEntity entity);
 }

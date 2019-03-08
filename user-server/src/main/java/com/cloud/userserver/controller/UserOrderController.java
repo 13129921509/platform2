@@ -13,10 +13,11 @@ import java.util.List;
 @RequestMapping(value = "/order")
 public class UserOrderController {
 
-    @Autowired
-    OrderRemoteApi orderRemoteApi;
-    @RequestMapping(value = "/")
-    public List<OrderEntity> getOrder(@RequestBody LoginUserEntity entity){
-        return orderRemoteApi.getOrdersList(entity.getEmail());
-    }
+//    @Autowired
+//    OrderRemoteApi orderRemoteApi;
+//
+//    @RequestMapping(value = "/")
+//    public List<OrderEntity> getOrder(@RequestBody LoginUserEntity entity){
+//        return orderRemoteApi.getOrdersList(entity.getEmail());
+//    }
 }

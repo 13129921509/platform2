@@ -11,14 +11,8 @@ public class OrderEntity {
     @TableField("shopCode")
     String shopCode;
 
-    @TableField("commodityCode")
-    String commodityCode;
-
     @TableField("userEmail")
     String userEmail;
-
-    @TableField("commodityName")
-    String commodityName;
 
     @TableField("number")
     String number;
@@ -37,6 +31,10 @@ public class OrderEntity {
 
     @TableField("price")
     String price;
+
+    @TableField("commodityCode")
+    String commodityCode;
+
     public String getOrderCode() {
         return orderCode;
     }
@@ -53,28 +51,12 @@ public class OrderEntity {
         this.shopCode = shopCode;
     }
 
-    public String getCommodityCode() {
-        return commodityCode;
-    }
-
-    public void setCommodityCode(String commodityCode) {
-        this.commodityCode = commodityCode;
-    }
-
     public String getUserEmail() {
         return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-    }
-
-    public String getCommodityName() {
-        return commodityName;
-    }
-
-    public void setCommodityName(String commodityName) {
-        this.commodityName = commodityName;
     }
 
     public String getNumber() {
@@ -127,17 +109,24 @@ public class OrderEntity {
 
     public OrderEntity(){}
 
-    public OrderEntity(String orderCode, String shopCode, String commodityCode, String userEmail, String commodityName, String number, String address, String consignee, String status, String startingTime, String price) {
+    public String getCommodityCode() {
+        return commodityCode;
+    }
+
+    public void setCommodityCode(String commodityCode) {
+        this.commodityCode = commodityCode;
+    }
+
+    public OrderEntity(String orderCode, String shopCode, String userEmail, String number, String address, String consignee, String status, String startingTime, String price, String commodityCode) {
         this.orderCode = orderCode;
         this.shopCode = shopCode;
-        this.commodityCode = commodityCode;
         this.userEmail = userEmail;
-        this.commodityName = commodityName;
         this.number = number;
         this.address = address;
         this.consignee = consignee;
         this.status = status;
         this.startingTime = startingTime;
         this.price = price;
+        this.commodityCode = commodityCode;
     }
 }

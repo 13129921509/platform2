@@ -1,5 +1,6 @@
 package com.cloud.staticresources.remoteapi;
 
+import com.cloud.publicmodel.entity.OrderDetailsEntity;
 import com.cloud.publicmodel.entity.OrderEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -16,4 +17,8 @@ public interface OrderRemoteApi {
      */
     @RequestMapping("/order/userEmail/{userEmail}")
     List<OrderEntity> getOrdersList(@PathVariable("userEmail") String userEmail);
-}
+
+    @RequestMapping("/orderCode/{orderCode}")
+    List<OrderDetailsEntity> getOrderDetailsEntities(@PathVariable("orderCode") String orderCode);
+
+    }

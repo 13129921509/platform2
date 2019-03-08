@@ -1,6 +1,7 @@
 package com.cloud.staticresources.controller;
 
 import com.cloud.publicmodel.entity.LoginUserEntity;
+import com.cloud.publicmodel.entity.OrderDetailsEntity;
 import com.cloud.publicmodel.entity.OrderEntity;
 import com.cloud.publicmodel.entity.UserDetailsEntity;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
@@ -32,8 +33,9 @@ public class BusinessController {
 
     @Autowired
     CommodityRemoteApi commodityRemoteApi;
+
     @PostMapping("/key")
-    public HttpClient getClient(HttpServletRequest request){
+    public HttpClient getClient(HttpServletRequest request) {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
         return businessRemoteApi.getHttpClient(entity);
     }
@@ -42,36 +44,40 @@ public class BusinessController {
      * 获得当前entity所有的订单，根据email查询订单
      */
     @RequestMapping(value = "/order")
-    public List<OrderEntity> getOrder(HttpServletRequest request){
+    public List<OrderEntity> getOrder(HttpServletRequest request) {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
         return orderRemoteApi.getOrdersList(entity.getEmail());
     }
 
     /**
-     *
      * @param
-     * @return 返回一个<"商品名称":"商品图片地址"></>
-     *
+     * @return 返回一个<" 商品名称 " : " 商品图片地址 "></>
      */
     @RequestMapping("/order/img")
-    public String getOrderListImg(HttpServletRequest request,@RequestBody OrderEntity orderEntity) throws URISyntaxException {
+    public String getOrderListImg(HttpServletRequest request, @RequestBody OrderEntity orderEntity) throws URISyntaxException {
         List<String> list = commodityRemoteApi.getOrderListImg(orderEntity.getCommodityCode());
         return list.get(0);
     }
 
     /**
      * 返回一个用户详细json
+     *
      * @param request
      * @return
      */
-    @RequestMapping(value = "/user/detail",method = RequestMethod.POST)
-    public Result userDetailsEntity(HttpServletRequest request){
+    @RequestMapping(value = "/user/detail", method = RequestMethod.POST)
+    public Result userDetailsEntity(HttpServletRequest request) {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
-        if (entity != null){
-            return new SuccessResponseBody("success",businessRemoteApi.userDetailsEntity(entity));
-        }else{
-            return new ErrorResponseBody("USER_DETAILS_UNDEFINED",ErrorResponseBody.ErrorCode.USER_DETAILS_UNDEFINED.getCode());
+        if (entity != null) {
+            return new SuccessResponseBody("success", businessRemoteApi.userDetailsEntity(entity));
+        } else {
+            return new ErrorResponseBody("USER_DETAILS_UNDEFINED", ErrorResponseBody.ErrorCode.USER_DETAILS_UNDEFINED.getCode());
         }
 //        return businessRemoteApi.userDetailsEntity(entity);
+    }
+
+    @RequestMapping("/orderCode/{orderCode}")
+    public List<OrderDetailsEntity> getOrderDetailsEntities(@PathVariable("orderCode") String orderCode) {
+        return orderRemoteApi.getOrderDetailsEntities(orderCode);
     }
 }

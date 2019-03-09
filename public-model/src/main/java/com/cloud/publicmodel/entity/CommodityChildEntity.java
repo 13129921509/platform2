@@ -24,6 +24,9 @@ public class CommodityChildEntity {
     @TableField("commodityCode")
     public String commodityCode;
 
+    @TableField("price")
+    public String price;
+
     public String getCommodityMainId() {
         return commodityMainId;
     }
@@ -72,13 +75,22 @@ public class CommodityChildEntity {
         this.commodityCode = commodityCode;
     }
 
-    public CommodityChildEntity(String commodityMainId, String color, String version, String imgDeatilDir, String imgDir, String commodityCode) {
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public CommodityChildEntity(String commodityMainId, String color, String version, String imgDeatilDir, String imgDir, String commodityCode, String price) {
         this.commodityMainId = commodityMainId;
         this.color = color;
         this.version = version;
         this.imgDeatilDir = imgDeatilDir;
         this.imgDir = imgDir;
         this.commodityCode = commodityCode;
+        this.price = price;
     }
 
     public CommodityChildEntity(){}

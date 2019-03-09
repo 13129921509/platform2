@@ -3,8 +3,12 @@ package com.cloud.publicmodel.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("commodity_header")
-public class CommodityHeaderEntity {
+public class CommodityHeaderEntity implements Serializable {
+    @TableField("id")
+    int id;
 
     @TableField("commodityName")
     String commodityName;
@@ -290,6 +294,14 @@ public class CommodityHeaderEntity {
 
     public void set_3GNetworkSystem(String _3GNetworkSystem) {
         this._3GNetworkSystem = _3GNetworkSystem;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public CommodityHeaderEntity(String commodityName, String introduce, String productionDate, String weight, String packingList, String brand, String model, String mobileOperatingSystem, String systemVersion, String cameraType, String frontCamera, String rearCamera, String numberOfRearCameras, String photographingCharacteristics, String screenSize, String screenResolution, String screenMaterial, String fuselageLength, String machineWidth, String fuselageThickness, String CPUBbrand, String CPUFrequency, String CPUModel, String SIMCardSize, String _4GNetworkSystem, String _3GNetworkSystem) {

@@ -20,6 +20,6 @@ public interface UserLoginRemoteApi {
     boolean loginCode(@RequestBody HashMap map);
 
     @RequestMapping(value = "/user/login",method = RequestMethod.POST)
-    String login(@RequestBody LoginUserEntity user);
+    String  login(@RequestBody LoginUserEntity user);
 
 }

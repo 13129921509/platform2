@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface CommodityChildMapper extends BaseMapper<CommodityChildEntity> {
     /**
@@ -17,5 +19,13 @@ public interface CommodityChildMapper extends BaseMapper<CommodityChildEntity> {
      */
     @Select("select * from commodity_child ${ew.customSqlSegment}")
     CommodityChildEntity getCommodityChildEntityByCommodityId(@Param(Constants.WRAPPER)Wrapper wrapper);
+
+    /**
+     *
+     * @param wrapper
+     * @return 返回所有符合条件的商品子项
+     */
+    @Select("select * from commodity_child ${ew.customSqlSegment}")
+    List<CommodityChildEntity> getCommodityChildEntity(@Param(Constants.WRAPPER)Wrapper wrapper);
 
 }

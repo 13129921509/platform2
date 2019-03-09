@@ -16,4 +16,5 @@ public interface CommodityRemoteApi {
      */
     @RequestMapping("/order/img/{commodityCode}")
     List<String> getOrderListImg(@PathVariable("commodityCode") String commodityCode);
+
 }

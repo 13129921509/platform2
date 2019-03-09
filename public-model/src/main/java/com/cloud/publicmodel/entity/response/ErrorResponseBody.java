@@ -47,6 +47,11 @@ public class ErrorResponseBody implements Result,Serializable
 
     public enum ErrorCode{
         /**
+         * 登录超时
+         */
+        LOGIN_TIMEOUT(40420),
+
+        /**
          * 用户详细信息未定义
          */
         USER_DETAILS_UNDEFINED(40410),

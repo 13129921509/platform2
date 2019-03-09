@@ -146,7 +146,7 @@ function getRegistrationCode() {
     if (document.getElementsByName("shopway")[0] != undefined) {
         code = "shop/registrycode";
     }else{
-        code = "user/registrycode";
+        code = "/registrycode";
     }
     var html = $.ajax({
         type: "POST",

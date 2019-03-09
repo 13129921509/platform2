@@ -3,8 +3,10 @@ package com.cloud.publicmodel.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("order_details")
-public class OrderDetailsEntity {
+public class OrderDetailsEntity implements Serializable {
     @TableField("commodityCode")
     String commodityCode;
 
@@ -12,7 +14,7 @@ public class OrderDetailsEntity {
     String commodityName;
 
     @TableField("number")
-    Integer number;
+    String number;
 
     @TableField("price")
     String price;
@@ -44,11 +46,11 @@ public class OrderDetailsEntity {
         this.commodityName = commodityName;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -60,11 +62,13 @@ public class OrderDetailsEntity {
         this.price = price;
     }
 
-    public OrderDetailsEntity(String commodityCode, String commodityName, Integer number, String price, String orderCode) {
+    public OrderDetailsEntity(String commodityCode, String commodityName, String number, String price, String orderCode) {
         this.commodityCode = commodityCode;
         this.commodityName = commodityName;
         this.number = number;
         this.price = price;
         this.orderCode = orderCode;
     }
+
+    public OrderDetailsEntity(){}
 }

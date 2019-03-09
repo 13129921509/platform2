@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class RegistryLisent {
+public class  RegistryLisent {
     @Autowired
     MailService mailService;
     @Autowired

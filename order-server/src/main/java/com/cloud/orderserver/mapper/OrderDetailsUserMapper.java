@@ -12,6 +12,6 @@ import java.util.List;
 
 @Component
 public interface OrderDetailsUserMapper extends BaseMapper<OrderDetailsEntity> {
-    @Select("SELECT * FROM order_details ${ew.customSqlSegment} ")
+    @Select("SELECT commodityCode,commodityName,number,price,orderCode FROM order_details ${ew.customSqlSegment} ")
     public List<OrderDetailsEntity> getOrderDetailsEntities(@Param(Constants.WRAPPER)Wrapper<OrderDetailsEntity> wrapper);
 }

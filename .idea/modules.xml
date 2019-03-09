@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/commodity-server/commodity-server.iml" filepath="$PROJECT_DIR$/commodity-server/commodity-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-registry/eureka-registry.iml" filepath="$PROJECT_DIR$/eureka-registry/eureka-registry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-server/order-server.iml" filepath="$PROJECT_DIR$/order-server/order-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/platform.iml" filepath="$PROJECT_DIR$/platform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/public-model/public-model.iml" filepath="$PROJECT_DIR$/public-model/public-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shop-server/shop-server.iml" filepath="$PROJECT_DIR$/shop-server/shop-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/static-resources/static-resources.iml" filepath="$PROJECT_DIR$/static-resources/static-resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user-server/user-server.iml" filepath="$PROJECT_DIR$/user-server/user-server.iml" />
+    </modules>
+  </component>
+</project>

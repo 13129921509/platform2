@@ -1,27 +1,24 @@
 package com.cloud.staticresources.controller;
 
+import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.entity.OrderDetailsEntity;
 import com.cloud.publicmodel.entity.OrderEntity;
-import com.cloud.publicmodel.entity.UserDetailsEntity;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.session.HttpClient;
-import com.cloud.publicmodel.util.FileUtil;
 import com.cloud.staticresources.remoteapi.BusinessRemoteApi;
 import com.cloud.staticresources.remoteapi.CommodityRemoteApi;
 import com.cloud.staticresources.remoteapi.OrderRemoteApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.net.URI;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class BusinessController {
@@ -34,6 +31,17 @@ public class BusinessController {
     @Autowired
     CommodityRemoteApi commodityRemoteApi;
 
+    @Autowired
+    RedisClient redisClient;
+
+    @Autowired
+    ForwardController forwardController;
+
+    /**
+     * 获得用户独有的key，可保持并发操作的安全性
+     * @param request
+     * @return
+     */
     @PostMapping("/key")
     public HttpClient getClient(HttpServletRequest request) {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
@@ -76,8 +84,45 @@ public class BusinessController {
 //        return businessRemoteApi.userDetailsEntity(entity);
     }
 
-    @RequestMapping("/orderCode/{orderCode}")
-    public List<OrderDetailsEntity> getOrderDetailsEntities(@PathVariable("orderCode") String orderCode) {
-        return orderRemoteApi.getOrderDetailsEntities(orderCode);
+    /**
+     * 返回一个订单所有明细
+     * @param request
+     * @return
+     * @throws InterruptedException
+     */
+    @RequestMapping(value = "/orderDetail",method = RequestMethod.POST)
+    public Result getOrderDetailsEntities(HttpServletRequest request,HttpServletResponse response) throws InterruptedException, ServletException, IOException {
+        LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
+        String orderCode = (String) redisClient.getObjectOfString("OrderCode:"+entity.getYzm());
+        if (orderCode == null){
+            request.getRequestDispatcher("login.html").forward(request,response);
+//            return new ErrorResponseBody("登陆超时",ErrorResponseBody.ErrorCode.LOGIN_TIMEOUT.getCode());
+        }
+        return new SuccessResponseBody("success",orderRemoteApi.getOrderDetailsEntities(orderCode));
+    }
+
+    /**
+     * 在转发的之前进行存储参数，采用redis，其实可以使用拦截器或aop做操作
+     * 后期修改
+     * @param request
+     * @param response
+     * @throws InterruptedException
+     * @throws ServletException
+     * @throws IOException
+     */
+    @GetMapping("/orderCode")
+    public void orderCode(HttpServletRequest request, HttpServletResponse response) throws InterruptedException, ServletException, IOException {
+        LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
+        redisClient.setObjectOfString("OrderCode:"+entity.getYzm(),request.getParameter("code"));
+        request.getRequestDispatcher("dingdanxiangqing.html").forward(request,response);
+    }
+
+    /**
+     * 通过商品编号获得订单明细缩略图
+     */
+    @RequestMapping("/orderDetails/img/{imgstr}")
+    public String getorderDetailsListImg(@PathVariable String imgstr) throws URISyntaxException {
+        List<String> list = commodityRemoteApi.getOrderListImg(imgstr);
+        return list.get(0);
     }
 }

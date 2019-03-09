@@ -60,7 +60,9 @@ function pullOrders() {
         listone.children[2].children[0].children[0].innerHTML = array[i]["status"];
         listone.children[2].children[0].children[1].innerHTML = "￥"+array[i]["price"];
         listone.children[2].children[0].children[2].innerHTML = array[i]["startingTime"].replace(/-/g,"/").slice(0,-3);
-        // 在此处进行获得订单图片的操作
+        listone.children[2].children[0].children[3].children[0].href =
+            listone.children[2].children[0].children[3].children[0].href+"?code="+ array[i]["orderCode"];
+        // 在此处进行获得订单图片的操作 orderDetails
         html = $.ajax({
             type: "POST",
             url: "/order/img",
@@ -74,6 +76,7 @@ function pullOrders() {
         listone.children[0].children[0].setAttribute("src",html);
         listone.children[0].children[0].style.width = "80px";
         listone.children[0].children[0].style.height = "80px";
+
         list.appendChild(listone);
     }
 

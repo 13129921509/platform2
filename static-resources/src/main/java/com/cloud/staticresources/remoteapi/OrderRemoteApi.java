@@ -18,7 +18,7 @@ public interface OrderRemoteApi {
     @RequestMapping("/order/userEmail/{userEmail}")
     List<OrderEntity> getOrdersList(@PathVariable("userEmail") String userEmail);
 
-    @RequestMapping("/orderCode/{orderCode}")
+    @RequestMapping("/order/orderCode/{orderCode}")
     List<OrderDetailsEntity> getOrderDetailsEntities(@PathVariable("orderCode") String orderCode);
 
-    }
+}

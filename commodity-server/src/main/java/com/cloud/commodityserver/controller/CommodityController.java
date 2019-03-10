@@ -7,9 +7,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cloud.commodityserver.mapper.CommodityChildMapper;
 import com.cloud.commodityserver.mapper.CommodityImgMapper;
 import com.cloud.commodityserver.mapper.CommodityMapper;
+import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.publicmodel.entity.CommodityChildEntity;
 import com.cloud.publicmodel.entity.CommodityHeaderEntity;
 import com.cloud.publicmodel.entity.CommodityImgEntity;
+import com.cloud.publicmodel.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +38,8 @@ public class CommodityController {
     @Autowired
     CommodityMapper commodityMapper;
 
+    @Autowired
+    RedisClient redisClient;
     /**
      * 通过child表中的commodityCode来获得header表中的id
      * 拿到id去img表中获得所有图片的信息
@@ -70,11 +74,12 @@ public class CommodityController {
      */
 
     @RequestMapping("/list/{index}")
-    public Object getInfoOfListPage(@RequestParam(value = "brand",required = false) String brand, @PathVariable String index, @RequestBody Map<String,Object> map){
+    public Object getInfoOfListPage(@RequestParam(value = "brand",required = false) String brand, @PathVariable String index, @RequestBody Map<String,Object> map,HttpServletResponse response) throws InterruptedException {
         Map<String,String> childMap = null;
+        ArrayList<Map> paramList = new ArrayList<>();//存放必须的搜索参数 做二次使用
         QueryWrapper<CommodityHeaderEntity> headerWrapper = new QueryWrapper<>();
         QueryWrapper<CommodityChildEntity> childWrapper = new QueryWrapper<>();
-        Page<CommodityHeaderEntity> page = new Page<CommodityHeaderEntity>(Integer.valueOf(index), 5);
+        Page<CommodityHeaderEntity> page = new Page<CommodityHeaderEntity>(Integer.valueOf(index), 10);
         //response.addCookie(new Cookie("page",String.valueOf(page.getCurrent())));
         //为了防止出现采用param方式提交属性的可能，进行判断
         if (brand!=null&&map.get("brand")==null){
@@ -123,9 +128,14 @@ public class CommodityController {
                 System.out.printf(String.valueOf(page.hasNext()));
                 if (commodityChildEntities.size() == 0){
                     //假如子选项为空 那么必定父选项为空
+                    paramList.add(map);
+                    paramList.add(childMap);
+                    addParams(paramList,response);
                     return null;
                 }
                 System.out.printf(String.valueOf(page.hasNext()));
+                paramList.add(map);
+                paramList.add(childMap);
                 return commodityHeaderEntityIPage;
             }//包含了child的条件和header的条件
             //指的是没有child的条件
@@ -135,6 +145,9 @@ public class CommodityController {
             );
 
             System.out.printf(String.valueOf(page.hasNext()));
+            paramList.add(map);
+            paramList.add(childMap);
+            addParams(paramList,response);
             return commodityHeaderEntityIPage;
         }
 
@@ -171,6 +184,9 @@ public class CommodityController {
                 commodityHeaderEntityIPage.remove(removeCommodityHeaderEntities.get(i));
             }
             System.out.printf(String.valueOf(page.hasNext()));
+            paramList.add(map);
+            paramList.add(childMap);
+            addParams(paramList,response);
             return commodityHeaderEntityIPage;
         }else{
             List<CommodityHeaderEntity> commodityHeaderEntityIPage =  commodityMapper.getCommodityHeaderEntityIPage(
@@ -179,8 +195,21 @@ public class CommodityController {
             );
 
             System.out.printf(String.valueOf(page.hasNext()));
+            paramList.add(map);
+            paramList.add(childMap);
+            addParams(paramList,response);
             return commodityHeaderEntityIPage;
         }
     }
 
+    /**
+     * 将参数保存至redis'中 做备用
+     * key 为随机生成的uuid 保存在cookie中
+     * Params:uuid
+     */
+    public void addParams(ArrayList<Map> list,HttpServletResponse response) throws InterruptedException {
+        String key = FileUtil.getUniqueCode();
+        response.addCookie(new Cookie("paramsCode",key));
+        redisClient.setObjectOfString("Params:"+key,list);
+    }
 }

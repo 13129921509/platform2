@@ -80,7 +80,11 @@ function pullList() {
 		srcs = JSON.parse(html);
 		child_.children[0].children[0].children[0].src = srcs[0];
 		items.appendChild(child_);
+		if (item!=0&&(parseInt(item)+1)%5==0){
+			center.appendChild(items);
+			items = document.getElementsByName("items")[0].cloneNode(true);
+			items.removeChild(items.children[0]);
+		}
 	}
-	center.appendChild(items);
 	center.removeChild(center.children[1]);
 }

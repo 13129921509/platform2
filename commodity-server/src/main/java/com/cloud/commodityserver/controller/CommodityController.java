@@ -11,10 +11,7 @@ import com.cloud.publicmodel.entity.CommodityChildEntity;
 import com.cloud.publicmodel.entity.CommodityHeaderEntity;
 import com.cloud.publicmodel.entity.CommodityImgEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +35,13 @@ public class CommodityController {
 
     @Autowired
     CommodityMapper commodityMapper;
+
+    /**
+     * 通过child表中的commodityCode来获得header表中的id
+     * 拿到id去img表中获得所有图片的信息
+     * @param commodityCode
+     * @return
+     */
     @RequestMapping("/order/img/{commodityCode}")
     public List<String> getOrderListImg(@PathVariable("commodityCode") String commodityCode){
         LambdaQueryWrapper<CommodityChildEntity> childWrapper = new LambdaQueryWrapper<CommodityChildEntity>();
@@ -50,16 +54,32 @@ public class CommodityController {
     }
 
     /**
+     * 拿到id去img表中获得所有图片的信息
+     * @param commodityId
+     * @return
+     */
+    @RequestMapping(value = "/img/{commodityId}",method = {RequestMethod.GET,RequestMethod.POST})
+    public List<String> getOrderListImgById(@PathVariable("commodityId") String commodityId){
+        LambdaQueryWrapper<CommodityImgEntity> imgEntity = new LambdaQueryWrapper<CommodityImgEntity>();
+        //获得图片地址
+        List<String> list = commodityImgMapper.getImgSrc(imgEntity.eq(CommodityImgEntity::getRelationId,commodityId));
+        return list;
+    }
+    /**
      * 返回列表界面所需要的信息
      */
 
     @RequestMapping("/list/{index}")
-    public Object getInfoOfListPage(HttpServletResponse response,HttpServletRequest request, @PathVariable String index, @RequestBody Map<String,Object> map){
+    public Object getInfoOfListPage(@RequestParam(value = "brand",required = false) String brand, @PathVariable String index, @RequestBody Map<String,Object> map){
         Map<String,String> childMap = null;
         QueryWrapper<CommodityHeaderEntity> headerWrapper = new QueryWrapper<>();
         QueryWrapper<CommodityChildEntity> childWrapper = new QueryWrapper<>();
         Page<CommodityHeaderEntity> page = new Page<CommodityHeaderEntity>(Integer.valueOf(index), 5);
         //response.addCookie(new Cookie("page",String.valueOf(page.getCurrent())));
+        //为了防止出现采用param方式提交属性的可能，进行判断
+        if (brand!=null&&map.get("brand")==null){
+            map.put("brand",brand);
+        }
         if (map.get("version")!= null || map.get("color")!= null){
             childMap = new HashMap<>();
             if (map.get("version")!= null){

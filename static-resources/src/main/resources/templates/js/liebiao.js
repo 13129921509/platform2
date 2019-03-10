@@ -1,6 +1,7 @@
 
 window.onload = function () {
 	before1();
+	pullList();
 }
 
 
@@ -15,8 +16,8 @@ function before1() {
 		dataType:"json",
 		async: false
 	}).responseText;
-	if(JSON.parse(html).account == undefined){
-
+	if(html == ""){
+		return ;
 	}else{
 		window.accound = JSON.parse(html);
 	}
@@ -42,5 +43,44 @@ function before1() {
  * 填充列表
  */
 function pullList() {
-	
+	var html = $.ajax({
+		type: "GET",
+		url: "/list/1",
+		contentType:"application/json",
+		dataType:"json",
+		async: false
+	}).responseText;
+	array = JSON.parse(html);
+
+	/**
+	 * 存储模版
+	 * @type {Node}
+	 * @private
+	 */
+	var child_model = document.getElementsByName("child")[0].cloneNode(true);
+	var center = document.getElementsByName("center")[0];
+	var items = document.getElementsByName("items")[0].cloneNode(true);
+	items.removeChild(items.children[0]);
+
+	for (item in array){
+		var child_  = child_model.cloneNode(true);
+		child_.children[1].children[0].innerHTML=array[item]["model"];
+		child_.children[2].innerHTML=array[item]["introduce"];
+		child_.children[3].innerHTML="最低价:"+array[item]["floorPrice"];
+		/**
+		 * 显示图片
+		 */
+		html = $.ajax({
+			type: "POST",
+			url: "/img/"+array[item]["id"],
+			contentType:"application/json",
+			dataType:"json",
+			async: false
+		}).responseText;
+		srcs = JSON.parse(html);
+		child_.children[0].children[0].children[0].src = srcs[0];
+		items.appendChild(child_);
+	}
+	center.appendChild(items);
+	center.removeChild(center.children[1]);
 }

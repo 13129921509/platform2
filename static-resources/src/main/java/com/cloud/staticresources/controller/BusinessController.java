@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BusinessController {
@@ -45,7 +47,11 @@ public class BusinessController {
     @PostMapping("/key")
     public HttpClient getClient(HttpServletRequest request) {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
-        return businessRemoteApi.getHttpClient(entity);
+        if (entity != null){
+            return businessRemoteApi.getHttpClient(entity);
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -125,4 +131,42 @@ public class BusinessController {
         List<String> list = commodityRemoteApi.getOrderListImg(imgstr);
         return list.get(0);
     }
+
+    /**
+     * 假设已经在list.html中 就不需要进行转发 只需要按照标准进行httpClient就行了，如果这是不再list页面
+     * 就应该进行转发 然后标准转换
+     * @param response
+     * @param request
+     * @param index
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/list/{index}",method = {RequestMethod.POST,RequestMethod.GET})
+    Object getInfoOfListPage(HttpServletResponse response, HttpServletRequest request, @PathVariable String index, @RequestBody(required = false) Map<String,Object> map){
+        String brand;
+        if (request.getSession().getAttribute("forward")!=null){
+            /**
+             * 以下为转发页面时 参数需要进行填充
+             * session不需要传至其他服务 所有仅保存在session中
+             */
+            Map<String,Object> forwardMap = (Map<String, Object>) request.getSession().getAttribute("forward");
+            request.getSession().removeAttribute("forward");
+            return commodityRemoteApi.getInfoOfListPage(forwardMap.get("brand").toString(),forwardMap.get("page").toString(),new HashMap<>());
+        }else{
+            /**
+             * 以下是就在当前页面的情况
+             */
+            if ((brand = request.getParameter("brand"))!=null){
+                return commodityRemoteApi.getInfoOfListPage(brand,index,map);
+            }
+            return commodityRemoteApi.getInfoOfListPage(null,index,map);
+        }
+
+    }
+
+    @RequestMapping(value = "/img/{commodityId}",method = RequestMethod.POST)
+    List<String> getOrderListImgById(@PathVariable("commodityId") String commodityId) {
+       return commodityRemoteApi.getOrderListImgById(commodityId);
+    }
+
 }

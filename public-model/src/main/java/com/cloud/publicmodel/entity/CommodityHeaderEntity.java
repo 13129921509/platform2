@@ -88,6 +88,17 @@ public class CommodityHeaderEntity implements Serializable {
     @TableField("3GNetworkSystem")
     String _3GNetworkSystem;
 
+    @TableField("floorPrice")
+    String floorPrice;
+
+    public String getFloorPrice() {
+        return floorPrice;
+    }
+
+    public void setFloorPrice(String floorPrice) {
+        this.floorPrice = floorPrice;
+    }
+
     public String getCommodityName() {
         return commodityName;
     }
@@ -304,7 +315,8 @@ public class CommodityHeaderEntity implements Serializable {
         this.id = id;
     }
 
-    public CommodityHeaderEntity(String commodityName, String introduce, String productionDate, String weight, String packingList, String brand, String model, String mobileOperatingSystem, String systemVersion, String cameraType, String frontCamera, String rearCamera, String numberOfRearCameras, String photographingCharacteristics, String screenSize, String screenResolution, String screenMaterial, String fuselageLength, String machineWidth, String fuselageThickness, String CPUBbrand, String CPUFrequency, String CPUModel, String SIMCardSize, String _4GNetworkSystem, String _3GNetworkSystem) {
+    public CommodityHeaderEntity(int id, String commodityName, String introduce, String productionDate, String weight, String packingList, String brand, String model, String mobileOperatingSystem, String systemVersion, String cameraType, String frontCamera, String rearCamera, String numberOfRearCameras, String photographingCharacteristics, String screenSize, String screenResolution, String screenMaterial, String fuselageLength, String machineWidth, String fuselageThickness, String CPUBbrand, String CPUFrequency, String CPUModel, String SIMCardSize, String _4GNetworkSystem, String _3GNetworkSystem, String floorPrice) {
+        this.id = id;
         this.commodityName = commodityName;
         this.introduce = introduce;
         this.productionDate = productionDate;
@@ -331,6 +343,7 @@ public class CommodityHeaderEntity implements Serializable {
         this.SIMCardSize = SIMCardSize;
         this._4GNetworkSystem = _4GNetworkSystem;
         this._3GNetworkSystem = _3GNetworkSystem;
+        this.floorPrice = floorPrice;
     }
 
     public CommodityHeaderEntity(){}

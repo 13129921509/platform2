@@ -1,5 +1,6 @@
 package com.cloud.staticresources.remoteapi;
 
+import com.cloud.publicmodel.entity.response.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -35,4 +36,9 @@ public interface CommodityRemoteApi {
     @RequestMapping(value = "/img/{commodityId}",method = RequestMethod.POST)
     List<String> getOrderListImgById(@PathVariable("commodityId") String commodityId);
 
+    /**
+     * 通过id去获取填充的信息
+     */
+    @RequestMapping(value = "/commodity/{id}",method = {RequestMethod.POST,RequestMethod.GET})
+    Result getCommodityHeaderEntityById(@PathVariable("id") String id);
 }

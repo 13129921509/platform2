@@ -151,7 +151,11 @@ public class BusinessController {
              */
             Map<String,Object> forwardMap = (Map<String, Object>) request.getSession().getAttribute("forward");
             request.getSession().removeAttribute("forward");
-            return commodityRemoteApi.getInfoOfListPage(forwardMap.get("brand").toString(),forwardMap.get("page").toString(),new HashMap<>());
+            return commodityRemoteApi.getInfoOfListPage(
+                    forwardMap.get("brand")!=null?forwardMap.get("brand").toString():"",
+                    forwardMap.get("page")!=null? (String) forwardMap.get("page") :"1",
+                    new HashMap<>()
+            );
         }else{
             /**
              * 以下是就在当前页面的情况
@@ -168,5 +172,14 @@ public class BusinessController {
     List<String> getOrderListImgById(@PathVariable("commodityId") String commodityId) {
        return commodityRemoteApi.getOrderListImgById(commodityId);
     }
+
+    /**
+     * 通过id去获取填充的信息
+     */
+    @RequestMapping(value = "/commodity/{id}",method = {RequestMethod.POST,RequestMethod.GET})
+    public Result getCommodityHeaderEntityById(@PathVariable("id") String id){
+        return  commodityRemoteApi.getCommodityHeaderEntityById(id);
+    }
+
 
 }

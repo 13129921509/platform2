@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>小米手机列表</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
+		<link rel="stylesheet" type="text/css" href="/css/list.css">
 		<script type="text/javascript" src="/js/liebiao.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 	</head>
@@ -37,11 +38,11 @@
 				</div>
 				<div class="right fr">
 					<div class="gouwuche fr"><a href="">购物车</a></div>
-					<div class="fr">
+					<div class="fr" name="topbar">
 						<ul>
-							<li><a href="/login.html" target="_blank">登录</a></li>
-							<li>|</li>
-							<li><a href="/register.html" target="_blank" >注册</a></li>
+							<li><a href="/login.html" target="_blank" name="tihuan">登录</a></li>
+							<li name="tihuan">|</li>
+							<li><a href="/register.html" target="_blank" name="tihuan">注册</a></li>
 							<li>|</li>
 							<li><a href="">消息通知</a></li>
 						</ul>
@@ -138,7 +139,23 @@
 				<div class="clear"></div>
 			</div>
 		</div>
-		
+	<div class="sn-pager" id="bottom_pager">
+		<div class="search-page page-fruits clearfix">
+		<!--<span class="say-your-fell">-->
+			<!--<a class="yourfell" href="//ued.suning.com/survey/view/search2017" target="_blank">说说您使用搜索的感受<em>GO</em></a>-->
+		<!--</span>-->
+			<a href="/0-20006-0-0-0-0-0-0-0-0-12121.html" pagenum="1" name="ssdln_20006_bottom_page-1" class="cur" rel="nofollow">1<em class="lion"></em></a>
+
+			<a href="/0-20006-1-0-0-0-0-0-0-0-12121.html" pagenum="2" name="ssdln_20006_bottom_page-2" rel="nofollow">2<em class="lion"></em></a>
+			<a href="/0-20006-2-0-0-0-0-0-0-0-12121.html" pagenum="3" name="ssdln_20006_bottom_page-3" rel="nofollow">3<em class="lion"></em></a>
+			<a href="/0-20006-3-0-0-0-0-0-0-0-12121.html" pagenum="4" name="ssdln_20006_bottom_page-4" rel="nofollow">4<em class="lion"></em></a>
+			<span>...</span>
+			<a href="/0-20006-6-0-0-0-0-0-0-0-12121.html" pagenum="7" name="ssdln_20006_bottom_page-7" rel="nofollow">7<em class="lion"></em></a>
+			<a href="/0-20006-1-0-0-0-0-0-0-0-12121.html" id="nextPage" name="ssdln_20006_bottom_pgdn02-2" class="next" rel="nofollow">
+				<b></b>
+			</a>
+		</div>
+	</div>
 
 		<footer class="mt20 center">			
 			<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>

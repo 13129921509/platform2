@@ -1,0 +1,135 @@
+.sn-pager {
+    text-align: center;
+    *margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    margin: 0 auto 20px;
+}
+
+.sn-pager .search-page {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.sn-pager .search-page span {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-left: -10px;
+    padding: 0 10px;
+}
+.sn-pager .search-page a, .sn-pager .search-page span {
+    float: left;
+    color: #999;
+    position: relative;
+}
+ul, li, p, h3, h5, em, b, i, span, a {
+    margin: 0;
+    padding: 0;
+}
+
+.search-page .say-your-fell a {
+    width: 180px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    border: 1px dotted #DDD;
+    background: #F8F8FA;
+    border-radius: 20px 20px 0;
+    font-size: 14px;
+    margin-right: 30px;
+}
+.sn-pager .search-page a {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #F8F8FA;
+    text-decoration: none;
+    border-radius: 2px;
+    font-size: 14px;
+    margin-right: 10px;
+    -webkit-transition: background-color .2s linear;
+    transition: background-color .2s linear;
+}
+.sn-pager .search-page a {
+    border-radius: 4px;
+    color: #666;
+}
+.sn-pager .search-page a, .sn-pager .search-page span {
+    float: left;
+    color: #999;
+    position: relative;
+}
+ul, li, p, h3, h5, em, b, i, span, a {
+    margin: 0;
+    padding: 0;
+}
+ul, li, p, h3, h5, em, b, i, span, a {
+    margin: 0;
+    padding: 0;
+}
+.ng-header .ng-gif-logo img, a {
+    outline: 0;
+}
+
+.search-page .say-your-fell em {
+    display: none;
+}
+.search-page .say-your-fell em {
+    margin: 0 5px;
+}
+ul, li, p, h3, h5, em, b, i, span, a {
+    margin: 0;
+    padding: 0;
+}
+ul, li, p, h3, h5, em, b, i, span, a {
+    margin: 0;
+    padding: 0;
+}
+.ng-iconfont, em, i {
+    font-style: normal;
+}
+
+.sn-pager .search-page a.cur .lion {
+    top: -22px;
+    opacity: 1;
+    filter: alpha(opacity=100);
+    background: url(../image/icons.dff0655bef1eeacec6e27cd5b832c985.png) no-repeat -79px -68px;
+    width: 40px;
+    height: 22px;
+}
+.sn-pager .search-page a .lion {
+    position: absolute;
+    display: block;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    background: url(../image/icons.dff0655bef1eeacec6e27cd5b832c985.png) no-repeat -129px -68px;
+    width: 40px;
+    height: 22px;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+}
+ul, li, p, h3, h5, em, b, i, span, a {
+    margin: 0;
+    padding: 0;
+}
+
+.sn-pager .search-page a.next b {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -8px 0 0 -4px;
+    background: url(../image/icons.dff0655bef1eeacec6e27cd5b832c985.png) no-repeat -260px -136px;
+    width: 10px;
+    height: 17px;
+}

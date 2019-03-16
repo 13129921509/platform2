@@ -11,6 +11,9 @@ import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.publicmodel.entity.CommodityChildEntity;
 import com.cloud.publicmodel.entity.CommodityHeaderEntity;
 import com.cloud.publicmodel.entity.CommodityImgEntity;
+import com.cloud.publicmodel.entity.response.ErrorResponseBody;
+import com.cloud.publicmodel.entity.response.Result;
+import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -211,5 +214,19 @@ public class CommodityController {
         String key = FileUtil.getUniqueCode();
         response.addCookie(new Cookie("paramsCode",key));
         redisClient.setObjectOfString("Params:"+key,list);
+    }
+
+    /**
+     * 通过id去获取填充的信息
+     */
+    @RequestMapping(value = "/commodity/{id}",method = {RequestMethod.POST,RequestMethod.GET})
+    public Result getCommodityHeaderEntityById(@PathVariable("id") String id){
+        LambdaQueryWrapper<CommodityHeaderEntity> wrapper = new LambdaQueryWrapper<>();
+        CommodityHeaderEntity entity =commodityMapper.getCommodityHeaderById(wrapper.eq(CommodityHeaderEntity::getId,id));
+        if (entity!=null){
+            return new SuccessResponseBody("success",entity);
+        }else{
+            return new ErrorResponseBody("商品不存在",ErrorResponseBody.ErrorCode.COMMODITY_DOES_NOT_EXIST.getCode());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.cloud.commodityserver.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -21,5 +22,7 @@ public interface CommodityMapper extends BaseMapper<CommodityHeaderEntity> {
     @Select("SELECT * from commodity_header ${ew.customSqlSegment}")
     List<CommodityHeaderEntity> getCommodityHeaderEntityIPage(Page<CommodityHeaderEntity> page, @Param("ew") QueryWrapper<CommodityHeaderEntity> headerWrappers);
 
+    @Select("SELECT * from commodity_header ${ew.customSqlSegment}")
+    CommodityHeaderEntity getCommodityHeaderById(@Param(Constants.WRAPPER) Wrapper<CommodityHeaderEntity> headerWrappers);
 
 }

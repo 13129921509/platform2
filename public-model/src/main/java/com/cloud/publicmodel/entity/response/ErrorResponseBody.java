@@ -47,6 +47,14 @@ public class ErrorResponseBody implements Result,Serializable
 
     public enum ErrorCode{
         /**
+         * 商品不存在
+         */
+        COMMODITY_DOES_NOT_EXIST(50000),
+        /**
+         * 商家不存在
+         */
+        SHOP_DOES_NOT_EXIST(60001),
+        /**
          * 登录超时
          */
         LOGIN_TIMEOUT(40420),

@@ -65,8 +65,13 @@ function pullList() {
 	for (item in array){
 		var child_  = child_model.cloneNode(true);
 		child_.children[1].children[0].innerHTML=array[item]["model"];
+		child_.setAttribute("id",array[item]["id"]);
 		child_.children[2].innerHTML=array[item]["introduce"];
 		child_.children[3].innerHTML="最低价:"+array[item]["floorPrice"];
+		child_.addEventListener("click",function (evt) {
+			window.open("/forword/xiangqing.html?id="+evt.currentTarget.getAttribute("id"));
+			alert(123);
+		},true);
 		/**
 		 * 显示图片
 		 */
@@ -80,11 +85,16 @@ function pullList() {
 		srcs = JSON.parse(html);
 		child_.children[0].children[0].children[0].src = srcs[0];
 		items.appendChild(child_);
-		if (item!=0&&(parseInt(item)+1)%5==0){
+		if ((parseInt(item)+1)%5==0&&array.length>=5){
 			center.appendChild(items);
 			items = document.getElementsByName("items")[0].cloneNode(true);
 			items.removeChild(items.children[0]);
 		}
+	}
+	if (items.children.length > 1){
+		center.appendChild(items);
+		items = document.getElementsByName("items")[0].cloneNode(true);
+		items.removeChild(items.children[0]);
 	}
 	center.removeChild(center.children[1]);
 }

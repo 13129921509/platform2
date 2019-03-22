@@ -24,15 +24,20 @@ public class ForwardController {
     @RequestMapping(value = "/forward/{str}",method = {RequestMethod.POST,RequestMethod.GET})
     public String forward(HttpServletRequest request, @PathVariable String str,
                           @RequestParam(value = "brand",required = false) String brand,
-                          @RequestParam(value = "page",required = false,defaultValue = "1") String page
+                          @RequestParam(value = "page",required = false,defaultValue = "1") String page,
+                          @RequestParam(value = "id",required = false,defaultValue = "1") String id
     ){
         //希望带参数的进行转发 比如带page brand
         //有时候转发可能带一些参数 这里进行判断
         //存储至session中
+        Map map = new HashMap();
         if(str.equals("liebiao")){
-            Map map = new HashMap();
+
             map.put("brand",brand);
             map.put("page",page);
+            request.getSession().setAttribute("forward",map);
+        }else if (str.equals("xiangqing")){
+            map.put("id",id);
             request.getSession().setAttribute("forward",map);
         }
         return str;

@@ -46,6 +46,7 @@ public class ErrorResponseBody implements Result,Serializable
 
 
     public enum ErrorCode{
+        RELATION_ID_DOES_NOT_EXIST(50003),
         /**
          * 商品不存在
          */

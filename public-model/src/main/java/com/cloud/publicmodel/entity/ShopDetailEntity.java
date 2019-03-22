@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 @TableName("shop_detail")
-public class ShopDetailEntity {
+public class ShopDetailEntity{
     @TableId("id")
     String id;
 
@@ -103,4 +103,17 @@ public class ShopDetailEntity {
         this.address = address;
         this.introduce = introduce;
     }
+
+    public ShopDetailEntity(String id, String email, String password, String username, String telephone, String name, String address, String introduce) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.telephone = telephone;
+        this.name = name;
+        this.address = address;
+        this.introduce = introduce;
+    }
+
+    public ShopDetailEntity(){};
 }

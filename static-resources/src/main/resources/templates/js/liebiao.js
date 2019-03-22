@@ -69,7 +69,7 @@ function pullList() {
 		child_.children[2].innerHTML=array[item]["introduce"];
 		child_.children[3].innerHTML="最低价:"+array[item]["floorPrice"];
 		child_.addEventListener("click",function (evt) {
-			window.open("/forword/xiangqing.html?id="+evt.currentTarget.getAttribute("id"));
+			window.open("/forward/xiangqing?id="+evt.currentTarget.getAttribute("id"));
 			alert(123);
 		},true);
 		/**

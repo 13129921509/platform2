@@ -27,7 +27,7 @@ public class CommodityChildEntity {
     @TableField("price")
     public String price;
 
-    public String getCommodityMainId() {
+    public  String getCommodityMainId() {
         return commodityMainId;
     }
 

@@ -2,7 +2,6 @@ package com.cloud.staticresources.controller;
 
 import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.publicmodel.entity.LoginUserEntity;
-import com.cloud.publicmodel.entity.OrderDetailsEntity;
 import com.cloud.publicmodel.entity.OrderEntity;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
@@ -11,6 +10,7 @@ import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.staticresources.remoteapi.BusinessRemoteApi;
 import com.cloud.staticresources.remoteapi.CommodityRemoteApi;
 import com.cloud.staticresources.remoteapi.OrderRemoteApi;
+import com.cloud.staticresources.remoteapi.ShopRemoteApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletException;
@@ -39,6 +39,8 @@ public class BusinessController {
     @Autowired
     ForwardController forwardController;
 
+    @Autowired
+    ShopRemoteApi shopRemoteApi;
     /**
      * 获得用户独有的key，可保持并发操作的安全性
      * @param request
@@ -176,10 +178,42 @@ public class BusinessController {
     /**
      * 通过id去获取填充的信息
      */
-    @RequestMapping(value = "/commodity/{id}",method = {RequestMethod.POST,RequestMethod.GET})
-    public Result getCommodityHeaderEntityById(@PathVariable("id") String id){
-        return  commodityRemoteApi.getCommodityHeaderEntityById(id);
+    @RequestMapping(value = "/commodity",method = {RequestMethod.POST,RequestMethod.GET})
+    public String getCommodityHeaderEntityById(HttpServletRequest request){
+        Map id = (Map) request.getSession().getAttribute("forward");
+        return commodityRemoteApi.getCommodityHeaderEntityById((String) id.get("id"));
     }
 
+    /**
+     * 通过关联ID去获得文件夹中所有图片信息
+     *
+     */
+    @RequestMapping(value = "/src/{relationId}",method = RequestMethod.POST)
+    public List<Object> getSrcByRelationId(@PathVariable String relationId, HttpServletRequest request){
+        List<Object> list = redisClient.getObjectOfList("commodity:imgs:imgDetail:"+relationId);
+        for (int i =0 ; i < list.size(); i++){
+            list.set(i,"/image/imgDetailDir/"+relationId+"/"+list.get(i));
+        }
+        return list;
+    }
 
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
+    public void setList(@RequestBody List<String> list){
+        redisClient.setObjectOfList("commodity:imgs:imgDetail:1",list);
+    }
+
+    @RequestMapping(value = "/list/1",method = RequestMethod.POST)
+    public void getList(){
+        redisClient.getObjectOfList("commodity:imgs:imgDetail:1");
+    }
+
+    @RequestMapping(value = "/version/relationId/{id}",method = RequestMethod.POST)
+    String getCommodityChildEntityByRelationId(@PathVariable("id") String id){
+        return commodityRemoteApi.getCommodityChildEntityByRelationId(id);
+    }
+
+    @RequestMapping(value = "/shopDetail/{id}",method = {RequestMethod.GET,RequestMethod.POST})
+    String getShopDetailById(@PathVariable("id") String id){
+        return shopRemoteApi.getShopDetailById(id);
+    }
 }

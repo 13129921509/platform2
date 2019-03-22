@@ -7,6 +7,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -50,4 +52,15 @@ public class RedisClient {
         return redisTemplate.opsForHash().get(key,redisTemplate.getHashKeySerializer().serialize(key));
     }
 
+    public void setObjectOfList(String key,int index,Object value){
+        redisTemplate.opsForList().leftPushAll(key,value);
+    }
+
+    public List<Object> getObjectOfList(String key){
+        return redisTemplate.opsForList().range(key,0,-1);
+    }
+
+    public void setObjectOfList(String s, List<String> list) {
+        redisTemplate.opsForList().leftPushAll(s,list);
+    }
 }

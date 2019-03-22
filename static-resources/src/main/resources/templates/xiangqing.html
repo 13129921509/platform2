@@ -3,8 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>小米6立即购买-小米商城</title>
-		<link rel="stylesheet" type="text/css" href="./css/style.css">
-		<link rel="stylesheet" type="text/css" href="./css/xiangqing.css">
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+		<link rel="stylesheet" type="text/css" href="/css/xiangqing.css">
+		<script type="text/javascript" src="/js/xiangqing.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 	</head>
 	<body>
 	<!-- start header -->
@@ -120,8 +122,8 @@
 					<a href="javascript:;" class="sl-btn sl-prev "></a>
 					<a href="javascript:;" class="sl-btn sl-next "></a>
 					<div class="thurb-sl">
-						<ul class="cfix" style="width: 280px;">
-							<li class="" data-src="http://img9.hqbcdn.com/product/5d/9d/5d9d13ec7d323bbfb891e5faf0303d83.340.jpg"> <img width="60" height="60" src="http://img9.hqbcdn.com/product/5d/9d/5d9d13ec7d323bbfb891e5faf0303d83.60.jpg" alt="" /> </li>
+						<ul class="cfix" style="width: 280px;" name="imgSrcs">
+							<li class="" name="imgSrc"  data-src="http://img9.hqbcdn.com/product/5d/9d/5d9d13ec7d323bbfb891e5faf0303d83.340.jpg"> <img width="60" height="60" src="http://img9.hqbcdn.com/product/5d/9d/5d9d13ec7d323bbfb891e5faf0303d83.60.jpg" alt="" /> </li>
 							<li class="" data-src="http://img4.hqbcdn.com/product/07/ca/07cab577fc8029dbbff9074a816a5994.340.jpg"> <img width="60" height="60" src="http://img4.hqbcdn.com/product/07/ca/07cab577fc8029dbbff9074a816a5994.60.jpg" alt="" /> </li>
 							<li class="on" data-src="http://img9.hqbcdn.com/product/75/0c/750c3e46664209e94252dfd23f9110f6.340.jpg"> <img width="60" height="60" src="http://img9.hqbcdn.com/product/75/0c/750c3e46664209e94252dfd23f9110f6.60.jpg" alt="" /> </li>
 							<li class="" data-src="http://img12.hqbcdn.com/product/33/90/3390b4e23d8e45fa5988a275dbc292c2.340.jpg"> <img width="60" height="60" src="http://img12.hqbcdn.com/product/33/90/3390b4e23d8e45fa5988a275dbc292c2.60.jpg" alt="" /> </li>
@@ -158,7 +160,7 @@
 								商家：
 							</dt>
 							<dd>
-								<a target="_blank" name="item_10555563041_shop_dianpu02" href="//3cruiye.suning.com">瑞业数码手机专营店</a>
+								<a target="_blank" name="shopName">瑞业数码手机专营店</a>
 								<script type="text/javascript"> $("#curShopName").attr("title",$("#curShopName").html()); </script>
 							</dd>
 						</dl>
@@ -167,7 +169,7 @@
 								联系：
 							</dt>
 							<dd id="onlineTile">
-								<a href="javascript:findpassNewSupplier('000000010555563041','02','0070073461','https://www.suning.com/emall/sprdonline_10052_10051_000000010555563041_0070073461_.html','','','010','0100101','','SNYG','dp','2','01','03','');" id="callmeTile" name="item_10555563041_shop_agent" class="contact-me contact-me-self"><i></i>联系客服</a>
+								<a href="javascript:findpassNewSupplier('000000010555563041','02','0070073461','https://www.suning.com/emall/sprdonline_10052_10051_000000010555563041_0070073461_.html','','','010','0100101','','SNYG','dp','2','01','03','');" id="callmeTile" name="shopEmail" class="contact-me contact-me-self"><i></i>联系客服</a>
 							</dd>
 						</dl>
 						<dl>
@@ -175,7 +177,7 @@
 								电话：
 							</dt>
 							<dd>
-								<p>0531-86080027</p>
+								<p name="shopTel">0531-86080027</p>
 							</dd>
 						</dl>
 					</div>
@@ -206,8 +208,8 @@
 				<input type="hidden" name="stock" value="500" class="stock" />
 				<!--E 商品信息 -->
 				<div class="v-title">
-					<h2> <span class="g-icon g-gn"></span> MI/小米 </h2>
-					<p class="v-a1">MI/小米 小米Play 流光渐变AI双摄 双卡双待 小水滴全面屏拍照游戏智能手机 4GB+64GB 蓝色</p>
+					<h2> <span class="g-icon g-gn"></span><a name="brand">MI/小米</a>  </h2>
+					<p><a id="commodityName" name="commodityName">MI/小米 小米Play 流光渐变AI双摄 双卡双待 小水滴全面屏拍照游戏智能手机 4GB+64GB 蓝色</a></p>
 					<p class="v-a2"></p>
 				</div>
 				<div class="v-info1 cfix">
@@ -216,7 +218,7 @@
 							商&nbsp;城&nbsp;价:
 						</dt>
 						<dd>
-							<p class="v-price">&yen;<b class="sku-price"> 1088.00 </b>
+							<p class="v-price">&yen;<b class="sku-price" name="floorPrice"> 1088.00 </b>
 								<del>
 									市场价:&yen;1099.00
 								</del></p>
@@ -260,9 +262,8 @@
 						<dt class="margin-min">
 							版&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本:
 						</dt>
-						<dd class="margin-min">
-							<a title="MI/小米 小米Play 流光渐变AI双摄 双卡双待 小水滴全面屏拍照游戏智能手机 4GB+64GB 黑色" class="v-item" href="                                        http://www.okhqb.com/item/1000127184.html
-                                        "> 4GB+64GB 黑色 </a>
+						<dd class="margin-min"  name="items">
+							<a name="item" class="v-item"> 4GB+64GB 黑色 </a>
 							<a title="MI/小米 小米Play 流光渐变AI双摄 双卡双待 小水滴全面屏拍照游戏智能手机 4GB+64GB 蓝色" class="v-item on" href="                                        http://www.okhqb.com/item/1000127185.html
                                         "> 4GB+64GB 蓝色 </a>
 							<a title="MI/小米 小米Play 流光渐变AI双摄 双卡双待 小水滴全面屏拍照游戏智能手机 4GB+64GB 金色" class="v-item" href="                                        http://www.okhqb.com/item/1000127186.html
@@ -379,45 +380,45 @@
 				<div class="dt-con">
 					<table class="cs_tab">
 						<tbody><tr>
-							<td class="td_tit">品牌</td>
+							<td class="td_tit" >品牌</td>
 							<td>
-								<a href="http://www.okhqb.com/list/137-2440_1300009820.html" target="_blank">MI/小米</a>
+								<a name="brand" href="http://www.okhqb.com/list/137-2440_1300009820.html" target="_blank">MI/小米</a>
 							</td>
 							<td class="td_tit">型号</td>
-							<td>小米Play</td>
-							<td class="td_tit">外观样式</td>
-							<td>全面屏</td>
+							<td name="model">小米Play</td>
+							<td class="td_tit">CPU</td>
+							<td name="cPUModel">全面屏</td>
 						</tr>
 						<tr>
-							<td class="td_tit">屏幕颜色</td>
-							<td>
+							<td class="td_tit">操作系统</td>
+							<td name="mobileOperatingSystem">
 								以官网信息为准
 							</td>
 							<td class="td_tit">摄像头</td>
-							<td>800万像素</td>
-							<td class="td_tit">储存功能</td>
-							<td>MicroSD(TF)</td>
+							<td name="rearCamera">800万像素</td>
+							<td class="td_tit">屏幕大小</td>
+							<td name="screenSize">MicroSD(TF)</td>
 						</tr>
 						<tr>
 							<td class="td_tit">网络制式</td>
-							<td>
+							<td name="_4GNetworkSystem">
 								移动/联通2G/3G/4G
 							</td>
-							<td class="td_tit">CPU核数</td>
-							<td>以官网信息为准</td>
-							<td class="td_tit">SIM卡类型</td>
-							<td>Nano SIM（小卡）</td>
+							<td class="td_tit">CPU频率</td>
+							<td name="CPUFrequency">以官网信息为准</td>
+							<td class="td_tit">SIM卡个数</td>
+							<td name="SIMCardSize">Nano SIM（小卡）</td>
 						</tr>
 						<tr>
 							<td class="td_tit">商品清单</td>
-							<td colspan="5">手机主机*1、 电源适配器*1、USB 数据线*1、定制SIM卡（仅限4+64版本）*1、定制卡附属手册（仅限4+64版本）*1、插针*1、 三包凭证/入门指南*1、手机保护套*1</td>
+							<td colspan="5" name="packingList">手机主机*1、 电源适配器*1、USB 数据线*1、定制SIM卡（仅限4+64版本）*1、定制卡附属手册（仅限4+64版本）*1、插针*1、 三包凭证/入门指南*1、手机保护套*1</td>
 						</tr>
 						</tbody></table>
 				</div>
 			</div>
 			<div class="dt-sec">
 				<h2 class="more-h2">▍详情描述</h2>
-				<div class="dt-con description"><img src="http://img8.hqbcdn.com/thumbs/product/29/34/29341b3c5543a2cf8538c794ffd93fa2.jpg" alt=""><img src="http://img12.hqbcdn.com/thumbs/product/18/1d/181d83061b787e818474e1a5b1b6dee6.jpg" alt=""><img src="http://img2.hqbcdn.com/thumbs/product/6e/58/6e58ee5f1b6f936c3c5e961ccc50ecfa.jpg" alt=""><img src="http://img15.hqbcdn.com/thumbs/product/88/70/8870288e48e9a39bc1d23d9f97c76aaf.jpg" alt=""><img src="http://img15.hqbcdn.com/thumbs/product/3f/35/3f35b98092eb88252f07b08b945505f1.jpg" alt=""><img src="http://img12.hqbcdn.com/thumbs/product/b9/8b/b98b673f264b3f4d3089e629c8cf480f.jpg" alt=""></div>
+				<div class="dt-con description" name="srcs"><img name="src" src="http://img8.hqbcdn.com/thumbs/product/29/34/29341b3c5543a2cf8538c794ffd93fa2.jpg" alt=""><img src="http://img12.hqbcdn.com/thumbs/product/18/1d/181d83061b787e818474e1a5b1b6dee6.jpg" alt=""><img src="http://img2.hqbcdn.com/thumbs/product/6e/58/6e58ee5f1b6f936c3c5e961ccc50ecfa.jpg" alt=""><img src="http://img15.hqbcdn.com/thumbs/product/88/70/8870288e48e9a39bc1d23d9f97c76aaf.jpg" alt=""><img src="http://img15.hqbcdn.com/thumbs/product/3f/35/3f35b98092eb88252f07b08b945505f1.jpg" alt=""><img src="http://img12.hqbcdn.com/thumbs/product/b9/8b/b98b673f264b3f4d3089e629c8cf480f.jpg" alt=""></div>
 			</div>
 			<div class="dt-sec" id="comment">
 				<h2>▍评价详情</h2>

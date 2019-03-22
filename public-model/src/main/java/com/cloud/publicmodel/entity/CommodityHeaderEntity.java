@@ -16,6 +16,9 @@ public class CommodityHeaderEntity implements Serializable {
     @TableField("introduce")
     String introduce;
 
+    @TableField("shopId")
+    String shopId;
+
     @TableField("productionDate")
     String productionDate;
 
@@ -82,11 +85,11 @@ public class CommodityHeaderEntity implements Serializable {
     @TableField("SIMCardSize")
     String SIMCardSize;
 
-    @TableField("4GNetworkSystem")
-    String _4GNetworkSystem;
+    @TableField("c4GNetworkSystem")
+    String c4GNetworkSystem;
 
-    @TableField("3GNetworkSystem")
-    String _3GNetworkSystem;
+    @TableField("c3GNetworkSystem")
+    String c3GNetworkSystem;
 
     @TableField("floorPrice")
     String floorPrice;
@@ -291,20 +294,20 @@ public class CommodityHeaderEntity implements Serializable {
         this.SIMCardSize = SIMCardSize;
     }
 
-    public String get_4GNetworkSystem() {
-        return _4GNetworkSystem;
+    public String getC4GNetworkSystem() {
+        return c4GNetworkSystem;
     }
 
-    public void set_4GNetworkSystem(String _4GNetworkSystem) {
-        this._4GNetworkSystem = _4GNetworkSystem;
+    public void setC4GNetworkSystem(String c4GNetworkSystem) {
+        this.c4GNetworkSystem = c4GNetworkSystem;
     }
 
-    public String get_3GNetworkSystem() {
-        return _3GNetworkSystem;
+    public String getC3GNetworkSystem() {
+        return c3GNetworkSystem;
     }
 
-    public void set_3GNetworkSystem(String _3GNetworkSystem) {
-        this._3GNetworkSystem = _3GNetworkSystem;
+    public void setC3GNetworkSystem(String c3GNetworkSystem) {
+        this.c3GNetworkSystem = c3GNetworkSystem;
     }
 
     public int getId() {
@@ -315,10 +318,18 @@ public class CommodityHeaderEntity implements Serializable {
         this.id = id;
     }
 
-    public CommodityHeaderEntity(int id, String commodityName, String introduce, String productionDate, String weight, String packingList, String brand, String model, String mobileOperatingSystem, String systemVersion, String cameraType, String frontCamera, String rearCamera, String numberOfRearCameras, String photographingCharacteristics, String screenSize, String screenResolution, String screenMaterial, String fuselageLength, String machineWidth, String fuselageThickness, String CPUBbrand, String CPUFrequency, String CPUModel, String SIMCardSize, String _4GNetworkSystem, String _3GNetworkSystem, String floorPrice) {
-        this.id = id;
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public CommodityHeaderEntity(String commodityName, String introduce, String shopId, String productionDate, String weight, String packingList, String brand, String model, String mobileOperatingSystem, String systemVersion, String cameraType, String frontCamera, String rearCamera, String numberOfRearCameras, String photographingCharacteristics, String screenSize, String screenResolution, String screenMaterial, String fuselageLength, String machineWidth, String fuselageThickness, String CPUBbrand, String CPUFrequency, String CPUModel, String SIMCardSize, String c4GNetworkSystem, String c3GNetworkSystem, String floorPrice) {
         this.commodityName = commodityName;
         this.introduce = introduce;
+        this.shopId = shopId;
         this.productionDate = productionDate;
         this.weight = weight;
         this.packingList = packingList;
@@ -341,8 +352,8 @@ public class CommodityHeaderEntity implements Serializable {
         this.CPUFrequency = CPUFrequency;
         this.CPUModel = CPUModel;
         this.SIMCardSize = SIMCardSize;
-        this._4GNetworkSystem = _4GNetworkSystem;
-        this._3GNetworkSystem = _3GNetworkSystem;
+        this.c4GNetworkSystem = c4GNetworkSystem;
+        this.c3GNetworkSystem = c3GNetworkSystem;
         this.floorPrice = floorPrice;
     }
 

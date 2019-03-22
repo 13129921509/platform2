@@ -975,11 +975,11 @@ button, input, textarea, select {
 	color: #222222;
 	font-size: 24px;
 }
-.v-title .v-a1, .v-title .v-a2 {
+
+.v-title .v-a1, .v-title .v-a2{
 	overflow: hidden;
 	word-break: break-all;
 }
-
 .info-hot .hot-t1 {
 	display: block;
 	height: 25px;

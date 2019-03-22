@@ -150,6 +150,15 @@ header .top .right .gouwuche:hover{color:#000;background: #666;}
 .xiangqing .neirong nav li{font-size:14px;float: left;display: block;margin:0px 5px;}
 .xiangqing .neirong nav li a{color: #333;font-size: 14px;}
 .xiangqing .neirong nav li a:hover{color:#ff6700;}
+#commodityName{
+	margin-bottom: 10px;
+	max-height: 60px;
+	line-height: 30px;
+	color: #222222;
+	font-size: 24px;
+	overflow: hidden;
+	word-break: break-all;
+}
 /*jieshao*/
 /*.jieshao{height: 560px; }*/
 .jieshao .left{width:560px;height:560px;border:1px solid #ccc;}

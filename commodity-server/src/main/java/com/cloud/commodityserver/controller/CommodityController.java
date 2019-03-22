@@ -1,5 +1,6 @@
 package com.cloud.commodityserver.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -220,13 +221,32 @@ public class CommodityController {
      * 通过id去获取填充的信息
      */
     @RequestMapping(value = "/commodity/{id}",method = {RequestMethod.POST,RequestMethod.GET})
-    public Result getCommodityHeaderEntityById(@PathVariable("id") String id){
+    public String getCommodityHeaderEntityById(@PathVariable("id") String id){
         LambdaQueryWrapper<CommodityHeaderEntity> wrapper = new LambdaQueryWrapper<>();
         CommodityHeaderEntity entity =commodityMapper.getCommodityHeaderById(wrapper.eq(CommodityHeaderEntity::getId,id));
         if (entity!=null){
-            return new SuccessResponseBody("success",entity);
+            String result = JSON.toJSONString(new SuccessResponseBody("success",entity));
+            return result;
         }else{
-            return new ErrorResponseBody("商品不存在",ErrorResponseBody.ErrorCode.COMMODITY_DOES_NOT_EXIST.getCode());
+            String result = JSON.toJSONString(new ErrorResponseBody("商品不存在",ErrorResponseBody.ErrorCode.COMMODITY_DOES_NOT_EXIST.getCode()));
+            return result;
         }
     }
+
+    /**
+     * 通过关联ID获取版本信息的信息
+     */
+    @RequestMapping(value = "/relationId/{id}",method = {RequestMethod.POST,RequestMethod.GET})
+    public String getCommodityChildEntityByRelationId(@PathVariable("id") String id){
+        LambdaQueryWrapper<CommodityChildEntity> wrapper = new LambdaQueryWrapper<>();
+        List<CommodityChildEntity> entity =  commodityChildMapper.getCommodityChildEntity(wrapper.eq(CommodityChildEntity::getCommodityMainId,id));
+        if (entity!=null){
+            String result = JSON.toJSONString(new SuccessResponseBody("success",entity));
+            return result;
+        }else{
+            String result = JSON.toJSONString(new ErrorResponseBody("关联id失效",ErrorResponseBody.ErrorCode.RELATION_ID_DOES_NOT_EXIST.getCode()));
+            return result;
+        }
+    }
+
 }

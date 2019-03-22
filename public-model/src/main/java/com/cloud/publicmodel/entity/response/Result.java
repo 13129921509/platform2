@@ -1,4 +1,6 @@
 package com.cloud.publicmodel.entity.response;
 
-public interface Result {
+import java.io.Serializable;
+
+public interface Result extends Serializable {
 }

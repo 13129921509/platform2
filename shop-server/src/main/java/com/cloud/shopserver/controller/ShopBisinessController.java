@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.entity.ShopDetailEntity;
 import com.cloud.publicmodel.entity.ShopHeaderEntity;
+import com.cloud.publicmodel.entity.response.AbstractResponseBody;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.shopserver.mapper.ShopDetailMapper;
+import com.cloud.shopserver.mapper.ShopHeaderMapper;
 import com.cloud.shopserver.mapper.ShopMapper;
 import com.cloud.shopserver.service.impl.ShopServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class ShopBisinessController {
 
     @Autowired
     ShopDetailMapper shopDetailMapper;
+
+    @Autowired
+    ShopHeaderMapper shopHeaderMapper;
     @RequestMapping(value = "/httpclient",method = RequestMethod.POST)
     public HttpClient getHttpClient(@RequestBody LoginUserEntity entity){
         return serviceImp.getHttpClient("HttpClient:"+entity.getEmail());
@@ -39,11 +44,22 @@ public class ShopBisinessController {
     @RequestMapping(value = "/shop/{id}",method = {RequestMethod.GET,RequestMethod.POST})
     public Result getShopById(@PathVariable("id") String id){
         LambdaQueryWrapper<ShopHeaderEntity> wrapper = new LambdaQueryWrapper<>();
-        ShopHeaderEntity entity = shopMapper.getShopHeaderEntity(wrapper.eq(ShopHeaderEntity::getId,id));
+        ShopHeaderEntity entity = shopHeaderMapper.getShopHeaderEntity(wrapper.eq(ShopHeaderEntity::getRelationId,id));
         if (entity!=null){
             return new SuccessResponseBody("success",entity);
         }else{
             return new ErrorResponseBody("商家不存在",ErrorResponseBody.ErrorCode.SHOP_DOES_NOT_EXIST.getCode());
+        }
+    }
+
+    @RequestMapping(value = "/shop/rsp/{id}",method = {RequestMethod.GET,RequestMethod.POST})
+    public AbstractResponseBody getShopByIdWithAbstractResponseBody(@PathVariable("id") String id){
+        LambdaQueryWrapper<ShopHeaderEntity> wrapper = new LambdaQueryWrapper<>();
+        ShopHeaderEntity entity = shopHeaderMapper.getShopHeaderEntity(wrapper.eq(ShopHeaderEntity::getRelationId,id));
+        if (entity!=null){
+            return new AbstractResponseBody("success",entity);
+        }else{
+            return new AbstractResponseBody("商家不存在",ErrorResponseBody.ErrorCode.SHOP_DOES_NOT_EXIST.getCode());
         }
     }
 

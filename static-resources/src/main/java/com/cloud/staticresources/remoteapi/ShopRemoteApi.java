@@ -1,5 +1,6 @@
 package com.cloud.staticresources.remoteapi;
 
+import com.cloud.publicmodel.entity.response.AbstractResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,4 +19,7 @@ public interface ShopRemoteApi {
      */
     @RequestMapping(value = "/shopDetail/{id}",method = RequestMethod.POST)
     String getShopDetailById(@PathVariable("id") String id);
+
+    @RequestMapping(value = "/shop/rsp/{id}",method = RequestMethod.POST)
+    AbstractResponseBody getShopByIdWithAbstractResponseBody(@PathVariable("id") String id);
 }

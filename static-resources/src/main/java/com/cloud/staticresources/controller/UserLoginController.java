@@ -33,8 +33,8 @@ public class UserLoginController {
     @RequestMapping(value = "/user/login",method = RequestMethod.POST)
     public Result login(@RequestBody LoginUserEntity entity,HttpServletRequest request){
         String str = userLoginRemoteApi.login(entity);
-        Result result = JSONObject.parseObject(str,AbstractResponseBody.class);
-        if (((AbstractResponseBody) result).getCode() == 200){
+        AbstractResponseBody result = JSONObject.parseObject(str,AbstractResponseBody.class);
+        if (result.getCode() == 200){
             //存放到本地session中，用来以后做业务操作前的验证
             request.getSession().setAttribute("entity",entity);
         }

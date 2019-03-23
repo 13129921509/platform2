@@ -25,8 +25,5 @@ public interface ShopMapper extends BaseMapper<RegistryShopEntity> {
     @Select("select count(*) from shop_header ${ew.customSqlSegment}")
     int login(@Param(Constants.WRAPPER) Wrapper<RegistryShopEntity> wrapper);
 
-    @Select("select * from shop_header ${ew.customSqlSegment}")
-    ShopHeaderEntity getShopHeaderEntity(@Param(Constants.WRAPPER) LambdaQueryWrapper<ShopHeaderEntity> wrapper);
-
 
 }

@@ -12,6 +12,7 @@ import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.publicmodel.entity.CommodityChildEntity;
 import com.cloud.publicmodel.entity.CommodityHeaderEntity;
 import com.cloud.publicmodel.entity.CommodityImgEntity;
+import com.cloud.publicmodel.entity.response.AbstractResponseBody;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
@@ -225,13 +226,14 @@ public class CommodityController {
         LambdaQueryWrapper<CommodityHeaderEntity> wrapper = new LambdaQueryWrapper<>();
         CommodityHeaderEntity entity =commodityMapper.getCommodityHeaderById(wrapper.eq(CommodityHeaderEntity::getId,id));
         if (entity!=null){
-            String result = JSON.toJSONString(new SuccessResponseBody("success",entity));
+            String result = JSON.toJSONString(new AbstractResponseBody("success",entity));
             return result;
         }else{
-            String result = JSON.toJSONString(new ErrorResponseBody("商品不存在",ErrorResponseBody.ErrorCode.COMMODITY_DOES_NOT_EXIST.getCode()));
+            String result = JSON.toJSONString(new AbstractResponseBody("商品不存在",ErrorResponseBody.ErrorCode.COMMODITY_DOES_NOT_EXIST.getCode()));
             return result;
         }
     }
+
 
     /**
      * 通过关联ID获取版本信息的信息
@@ -249,4 +251,13 @@ public class CommodityController {
         }
     }
 
+    /**
+     * 通过商品Code获取版本信息
+     */
+    @RequestMapping(value = "/shopCode/{shopCode}",method = RequestMethod.POST)
+    CommodityChildEntity getCommodityChildEntityByShopCode(@PathVariable("shopCode") String shopCode){
+        LambdaQueryWrapper<CommodityChildEntity> wrapper = new LambdaQueryWrapper<>();
+        CommodityChildEntity entity =  commodityChildMapper.getCommodityChildEntityByOne(wrapper.eq(CommodityChildEntity::getCommodityCode,shopCode));
+        return entity;
+    }
 }

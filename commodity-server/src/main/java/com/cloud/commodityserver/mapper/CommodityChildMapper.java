@@ -28,4 +28,13 @@ public interface CommodityChildMapper extends BaseMapper<CommodityChildEntity> {
     @Select("select * from commodity_child ${ew.customSqlSegment}")
     List<CommodityChildEntity> getCommodityChildEntity(@Param(Constants.WRAPPER)Wrapper wrapper);
 
+
+    /**
+     *
+     * @param wrapper
+     * @return 返回一个符合条件的商品子项
+     */
+    @Select("select * from commodity_child ${ew.customSqlSegment}")
+    CommodityChildEntity getCommodityChildEntityByOne(@Param(Constants.WRAPPER)Wrapper wrapper);
+
 }

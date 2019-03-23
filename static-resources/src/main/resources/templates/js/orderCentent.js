@@ -1,7 +1,7 @@
 
 window.onload = function () {
-    pullOrders();
     before1();
+    pullOrders();
 }
 
 
@@ -32,7 +32,7 @@ function before1() {
     li.appendChild(a);
     ul.appendChild(li);
     a.addEventListener("click",function (ev) {
-        window.location.href = "../dingdanzhongxin.html";
+        window.location.href = "/forward/dingdanzhongxin";
     },true)
     // src = document.createTextNode(window.accound.accound);
 
@@ -45,7 +45,7 @@ function pullOrders() {
      * @type {string}
      */
     var html = $.ajax({
-        type: "POST",
+        type: "GET",
         url: "/order",
         contentType:"application/json",
         dataType:"json",

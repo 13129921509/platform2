@@ -1,6 +1,6 @@
 package com.cloud.publicmodel.entity.response;
 
-public abstract class AbstractResponseBody implements Result{
+public class AbstractResponseBody implements Result{
     private String msg;
 
     private int code;
@@ -20,6 +20,13 @@ public abstract class AbstractResponseBody implements Result{
     {
         this.msg = success;
         this.code = code;
+    }
+
+    public AbstractResponseBody(String success,Object obj)
+    {
+        this.msg = success;
+        this.code = code;
+        this.obj = obj;
     }
     public String getMsg() {
         return msg;

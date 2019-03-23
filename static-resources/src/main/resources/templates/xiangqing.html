@@ -38,15 +38,15 @@
 				</div>
 				<div class="right fr">
 					<div class="gouwuche fr"><a href="">购物车</a></div>
-					<div class="fr">
+					<div class="fr" name="topbar">
 						<ul>
-							<li><a href="./login.html" target="_blank">登录</a></li>
-							<li>|</li>
-							<li><a href="./register.html" target="_blank" >注册</a></li>
+							<li><a href="/forward/login" target="_blank" name="tihuan">登录</a></li>
+							<li name="tihuan">|</li>
+							<li><a href="/forward/register" target="_blank" name="tihuan">注册</a></li>
 							<li>|</li>
 							<li><a href="">消息通知</a></li>
 						</ul>
-					</div>
+					</div>>
 					<div class="clear"></div>
 				</div>
 				<div class="clear"></div>
@@ -295,16 +295,15 @@
 						</dt>
 						<dd>
 							<div class="num-box">
-								<span class="num-btn less">－</span>
-								<input type="text" class="sku-num" value="1" />
-								<span class="num-btn plus">＋</span> &nbsp;&nbsp;件
-								<i class="num-tips">限购1件</i>
+								<span class="num-btn less" name="less" onclick="less()">－</span>
+								<input name="orderNum" type="text" class="sku-num" value="1" />
+								<span class="num-btn plus" name="pius" onclick="plus()">＋</span> &nbsp;&nbsp;件
 							</div>
 						</dd>
 					</dl>
 					<div class="v-buy">
 						<!-- 库存为0 class="add add-over" -->
-						<a href="javascript:void(0);" class="add add-on"><i></i>加入购物车</a>
+						<a href="javascript:void(0);" class="add add-on" onclick="buy()"><i></i>立即购买</a>
 						<!-- 库存为零时 显示到货通知 -->
 						<!--<a href="javascript:void(0);" class="add add-rmd">到货提醒</a>-->
 					</div>

@@ -1,6 +1,7 @@
 package com.cloud.staticresources.remoteapi;
 
 import com.alibaba.fastjson.JSON;
+import com.cloud.publicmodel.entity.CommodityChildEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -45,4 +46,10 @@ public interface CommodityRemoteApi {
      */
     @RequestMapping(value = "/relationId/{id}",method = RequestMethod.POST)
     String getCommodityChildEntityByRelationId(@PathVariable("id") String id);
+
+    /**
+     * 通过商品Code获取版本信息的信息
+     */
+    @RequestMapping(value = "/shopCode/{shopCode}",method = RequestMethod.POST)
+    CommodityChildEntity getCommodityChildEntityByShopCode(@PathVariable("shopCode") String shopCode);
 }

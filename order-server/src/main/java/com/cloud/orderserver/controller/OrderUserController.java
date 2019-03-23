@@ -5,10 +5,10 @@ import com.cloud.orderserver.mapper.OrderDetailsUserMapper;
 import com.cloud.orderserver.mapper.OrderUserMapper;
 import com.cloud.publicmodel.entity.OrderDetailsEntity;
 import com.cloud.publicmodel.entity.OrderEntity;
+import com.cloud.publicmodel.entity.OrderModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +33,25 @@ public class OrderUserController {
         List<OrderDetailsEntity> list = orderDetailsUserMapper.getOrderDetailsEntities(wrapper.eq(OrderDetailsEntity::getOrderCode,orderCode));
         return list;
 
+    }
+
+    /**
+     * 新增订单
+     * @return
+     */
+    @Transactional
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public String addOrderHeader(@RequestBody OrderModel orderModel){
+        Integer num = 0;
+        try{
+            orderUserMapper.insert(orderModel.orderEntity);
+            for (OrderDetailsEntity entity : orderModel.orderDetailsEntityList){
+                orderDetailsUserMapper.insert(entity);
+            }
+            return String.valueOf(num = orderModel.orderDetailsEntityList.size());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "0";
     }
 }

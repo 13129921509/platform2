@@ -2,6 +2,7 @@ package com.cloud.staticresources.remoteapi;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.publicmodel.entity.LoginUserEntity;
+import com.cloud.publicmodel.entity.UserDetailsEntity;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.session.HttpClient;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -22,4 +23,11 @@ public interface UserLoginRemoteApi {
     @RequestMapping(value = "/user/login",method = RequestMethod.POST)
     String  login(@RequestBody LoginUserEntity user);
 
+    /**
+     * x\显示出用户的详细信息
+     * @param entity
+     * @return
+     */
+    @RequestMapping(value = "/user/detail",method = RequestMethod.POST)
+    UserDetailsEntity userDetailsEntity(@RequestBody LoginUserEntity entity);
 }

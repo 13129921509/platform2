@@ -2,12 +2,16 @@ package com.cloud.staticresources.remoteapi;
 
 import com.cloud.publicmodel.entity.OrderDetailsEntity;
 import com.cloud.publicmodel.entity.OrderEntity;
+import com.cloud.publicmodel.entity.OrderModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 @FeignClient("order-server")
@@ -21,4 +25,10 @@ public interface OrderRemoteApi {
     @RequestMapping("/order/orderCode/{orderCode}")
     List<OrderDetailsEntity> getOrderDetailsEntities(@PathVariable("orderCode") String orderCode);
 
+    /**
+     * 新增订单
+     * @return
+     */
+    @RequestMapping(value = "/order/add",method = RequestMethod.POST)
+    String addOrderHeader(@RequestBody OrderModel orderModel);
 }

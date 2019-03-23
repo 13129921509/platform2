@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("shop_header")
 public class ShopHeaderEntity {
     @TableId("id")
-    String id;
+    Integer id;
 
     @TableField("username")
     String username;
@@ -27,11 +27,11 @@ public class ShopHeaderEntity {
     @TableField("shopCode")
     String shopCode;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,4 +91,16 @@ public class ShopHeaderEntity {
         this.relationId = relationId;
         this.shopCode = shopCode;
     }
+
+    public ShopHeaderEntity(Integer id,String username, String passwords, String telephone, String email, String relationId, String shopCode) {
+        this.id = id;
+        this.username = username;
+        this.passwords = passwords;
+        this.telephone = telephone;
+        this.email = email;
+        this.relationId = relationId;
+        this.shopCode = shopCode;
+    }
+
+    public ShopHeaderEntity(){}
 }

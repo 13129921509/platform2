@@ -1,26 +1,25 @@
 package com.cloud.staticresources.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.cloud.publicmodel.client.RedisClient;
-import com.cloud.publicmodel.entity.LoginUserEntity;
-import com.cloud.publicmodel.entity.OrderEntity;
+import com.cloud.publicmodel.entity.*;
+import com.cloud.publicmodel.entity.response.AbstractResponseBody;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.session.HttpClient;
-import com.cloud.staticresources.remoteapi.BusinessRemoteApi;
-import com.cloud.staticresources.remoteapi.CommodityRemoteApi;
-import com.cloud.staticresources.remoteapi.OrderRemoteApi;
-import com.cloud.staticresources.remoteapi.ShopRemoteApi;
+import com.cloud.staticresources.remoteapi.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 public class BusinessController {
@@ -41,6 +40,9 @@ public class BusinessController {
 
     @Autowired
     ShopRemoteApi shopRemoteApi;
+
+    @Autowired
+    UserLoginRemoteApi userRemoteApi;
     /**
      * 获得用户独有的key，可保持并发操作的安全性
      * @param request
@@ -59,7 +61,7 @@ public class BusinessController {
     /**
      * 获得当前entity所有的订单，根据email查询订单
      */
-    @RequestMapping(value = "/order")
+    @RequestMapping(value = "/order",method = RequestMethod.GET)
     public List<OrderEntity> getOrder(HttpServletRequest request) {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
         return orderRemoteApi.getOrdersList(entity.getEmail());
@@ -215,5 +217,61 @@ public class BusinessController {
     @RequestMapping(value = "/shopDetail/{id}",method = {RequestMethod.GET,RequestMethod.POST})
     String getShopDetailById(@PathVariable("id") String id){
         return shopRemoteApi.getShopDetailById(id);
+    }
+
+    /**
+     * 新增order
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/order",method = RequestMethod.POST)
+    String addOrder(@RequestBody Map map,HttpServletRequest request){
+//        redisClient.getObjectOfString("HttpClient:"+request.getSession().getAttribute("entity"));
+        LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
+        /**
+         * 用户信息
+         */
+        UserDetailsEntity userDetailsEntity = userRemoteApi.userDetailsEntity(entity);
+        AbstractResponseBody rsp = shopRemoteApi.getShopByIdWithAbstractResponseBody((String) map.get("shop"));
+        /**
+         * 商家信息
+         */
+        ShopHeaderEntity shopHeaderEntity = JSON.toJavaObject((JSON) JSONObject.parse(JSON.toJSONString(rsp.getObj())),ShopHeaderEntity.class);
+//        ShopHeaderEntity shopHeaderEntity = (ShopHeaderEntity) rsp.getObj();
+        /**
+         * 商品信息
+         */
+        CommodityChildEntity commodityChildEntity = commodityRemoteApi.getCommodityChildEntityByShopCode((String) map.get("commodityVersion"));
+        /**
+         * 商品头信息
+         */
+        String hrsp = commodityRemoteApi.getCommodityHeaderEntityById(commodityChildEntity.getCommodityMainId());
+        AbstractResponseBody body = JSON.toJavaObject((JSON) JSONObject.parse(hrsp),AbstractResponseBody.class);
+        CommodityHeaderEntity commodityHeaderEntity = JSON.toJavaObject((JSON) JSONObject.parse(JSON.toJSONString(body.getObj())),CommodityHeaderEntity.class);
+        /**
+         * 价格
+         */
+        String price = String.valueOf(Integer.parseInt((String) map.get("orderNum"))*Double.parseDouble(commodityChildEntity.getPrice()));
+        String orderCode = "";
+        OrderEntity orderEntity = new OrderEntity(orderCode = UUID.randomUUID().toString().split("-")[0],
+                shopHeaderEntity.getShopCode(),
+                entity.getEmail(),
+                String.valueOf(map.get("orderNum")),
+                userDetailsEntity.getReceivingAddress(),
+                userDetailsEntity.getRealName(),
+                "准备中",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+                price,
+                commodityChildEntity.getCommodityCode()
+                );
+//        redisClient.setObjectOfString("orderAdd:"+entity.getEmail());
+        OrderDetailsEntity orderDetailsEntity = new OrderDetailsEntity(commodityChildEntity.getCommodityCode(),
+                commodityHeaderEntity.getCommodityName(),
+                String.valueOf(map.get("orderNum")),
+                price,
+                orderCode
+                );
+        OrderModel orderModel = new OrderModel(orderEntity,orderDetailsEntity);
+        return orderRemoteApi.addOrderHeader(orderModel);
     }
 }

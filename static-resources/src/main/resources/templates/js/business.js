@@ -30,7 +30,7 @@ function before1() {
     li.appendChild(a);
     ul.appendChild(li);
     a.addEventListener("click",function (ev) {
-        window.location.href = "../dingdanzhongxin.html";
+        window.location.href = "/forward/dingdanzhongxin";
     },true)
     // src = document.createTextNode(window.accound.accound);
 

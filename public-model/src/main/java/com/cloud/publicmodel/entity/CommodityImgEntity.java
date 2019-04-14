@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("commodity_img")
-public class CommodityImgEntity {
+public class CommodityImgEntity  implements Serializable {
     @TableField("imgSrc")
     String imSrc;
 

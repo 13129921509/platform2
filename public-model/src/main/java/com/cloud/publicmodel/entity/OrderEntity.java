@@ -3,8 +3,10 @@ package com.cloud.publicmodel.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("order_")
-public class OrderEntity {
+public class OrderEntity  implements Serializable {
     @TableField("orderCode")
     String orderCode;
 

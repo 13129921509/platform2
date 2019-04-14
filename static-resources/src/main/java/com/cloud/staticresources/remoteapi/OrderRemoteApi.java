@@ -31,4 +31,12 @@ public interface OrderRemoteApi {
      */
     @RequestMapping(value = "/order/add",method = RequestMethod.POST)
     String addOrderHeader(@RequestBody OrderModel orderModel);
+
+    /**
+     * 获得订单列表
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/order",method = RequestMethod.GET)
+    List<OrderEntity> getOrderList(@RequestBody Map<String,String> map);
 }

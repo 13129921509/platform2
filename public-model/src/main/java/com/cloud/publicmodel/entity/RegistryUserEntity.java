@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component
 @TableName(value = "user_header")
-public class RegistryUserEntity {
+public class RegistryUserEntity implements Serializable {
 //    @TableId(value = "id")
 //    Long id;
 

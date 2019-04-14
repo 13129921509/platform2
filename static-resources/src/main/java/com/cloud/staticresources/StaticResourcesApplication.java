@@ -7,11 +7,14 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.client.RestTemplate;
 
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
+//@EnableJpaRepositories
 @ComponentScan(basePackages = {"com.cloud.publicmodel.*","com.cloud.staticresources.*"})
 
 public class StaticResourcesApplication {

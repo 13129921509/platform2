@@ -153,7 +153,6 @@ function pullList() {
 	document.getElementsByName("shopEmail")[0].innerText = array["rsp"]["email"];
 	document.getElementsByName("shopTel")[0].innerText = array["rsp"]["telephone"];
 	document.getElementsByName("shopName")[0].setAttribute("relationCode",array["rsp"]["id"]);
-	imgSrcs.innerHTML="";
 }
 
 
@@ -187,6 +186,9 @@ function buy() {
 	console.log(html);
 	if (parseInt(html)>0){
 		alert("已提交订单，请前往订单中心查看");
+	}
+	if (html == ""){
+		alert("请判断是否登录账号");
 	}
 }
 

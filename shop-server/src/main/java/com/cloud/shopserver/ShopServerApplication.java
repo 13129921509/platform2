@@ -8,9 +8,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableDiscoveryClient
 @EnableEurekaClient
 @ComponentScan(basePackages = {"com.cloud.publicmodel","com.cloud.shopserver.*"})

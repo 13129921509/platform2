@@ -11,6 +11,7 @@ import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.publicmodel.client.RedisClient;
 import com.cloud.userserver.mapper.UserHeaderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

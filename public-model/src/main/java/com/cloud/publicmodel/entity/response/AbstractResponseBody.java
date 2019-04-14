@@ -1,6 +1,8 @@
 package com.cloud.publicmodel.entity.response;
 
-public class AbstractResponseBody implements Result{
+import java.io.Serializable;
+
+public class AbstractResponseBody implements Result, Serializable {
     private String msg;
 
     private int code;

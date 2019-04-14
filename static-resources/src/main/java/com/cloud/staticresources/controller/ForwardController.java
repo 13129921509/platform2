@@ -38,7 +38,7 @@ public class ForwardController {
             request.getSession().setAttribute("forward",map);
         }else if (str.equals("xiangqing")){
             map.put("id",id);
-            request.getSession().setAttribute("forward",map);
+            request.getSession().setAttribute("forward2",map);
         }
         return str;
     }

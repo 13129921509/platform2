@@ -2,8 +2,7 @@ package com.cloud.publicmodel.entity.response;
 
 import java.io.Serializable;
 
-public class ErrorResponseBody implements Result,Serializable
-{
+public class ErrorResponseBody implements Result,Serializable {
     /**
      * 错误内容
      */

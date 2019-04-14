@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.cloud.publicmodel.entity.CommodityChildEntity;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface CommodityChildMapper extends BaseMapper<CommodityChildEntity> {
      * @param wrapper
      * @return 返回一个商品子项
      */
+    @Cacheable(cacheNames = {"CommodityChildEntityByCommodityId"},key = "methodName +#p0")
     @Select("select * from commodity_child ${ew.customSqlSegment}")
     CommodityChildEntity getCommodityChildEntityByCommodityId(@Param(Constants.WRAPPER)Wrapper wrapper);
 
@@ -25,6 +27,7 @@ public interface CommodityChildMapper extends BaseMapper<CommodityChildEntity> {
      * @param wrapper
      * @return 返回所有符合条件的商品子项
      */
+    @Cacheable(cacheNames = {"CommodityChildEntity"},key = "methodName +#p0")
     @Select("select * from commodity_child ${ew.customSqlSegment}")
     List<CommodityChildEntity> getCommodityChildEntity(@Param(Constants.WRAPPER)Wrapper wrapper);
 
@@ -34,6 +37,7 @@ public interface CommodityChildMapper extends BaseMapper<CommodityChildEntity> {
      * @param wrapper
      * @return 返回一个符合条件的商品子项
      */
+    @Cacheable(cacheNames = {"CommodityChildEntityByOne"},key = "methodName +#p0")
     @Select("select * from commodity_child ${ew.customSqlSegment}")
     CommodityChildEntity getCommodityChildEntityByOne(@Param(Constants.WRAPPER)Wrapper wrapper);
 

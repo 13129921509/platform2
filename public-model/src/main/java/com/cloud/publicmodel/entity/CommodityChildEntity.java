@@ -3,8 +3,10 @@ package com.cloud.publicmodel.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("commodity_child")
-public class CommodityChildEntity {
+public class CommodityChildEntity  implements Serializable {
 
     @TableField("commodityMainId")
     public String commodityMainId;

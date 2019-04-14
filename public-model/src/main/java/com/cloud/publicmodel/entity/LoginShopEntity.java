@@ -1,6 +1,8 @@
 package com.cloud.publicmodel.entity;
 
-public class LoginShopEntity {
+import java.io.Serializable;
+
+public class LoginShopEntity  implements Serializable {
     String email;
     String password;
     String yzm;

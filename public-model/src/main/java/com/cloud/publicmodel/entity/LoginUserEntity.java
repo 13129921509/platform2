@@ -3,7 +3,9 @@ package com.cloud.publicmodel.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-public class LoginUserEntity {
+import java.io.Serializable;
+
+public class LoginUserEntity  implements Serializable {
     String email;
     String password;
     String yzm;

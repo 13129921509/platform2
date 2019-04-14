@@ -10,6 +10,8 @@ import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
 import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.staticresources.remoteapi.*;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +66,9 @@ public class BusinessController {
     @RequestMapping(value = "/order",method = RequestMethod.GET)
     public List<OrderEntity> getOrder(HttpServletRequest request) {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
+        if (entity == null){
+            return null;
+        }
         return orderRemoteApi.getOrdersList(entity.getEmail());
     }
 
@@ -103,6 +108,9 @@ public class BusinessController {
     @RequestMapping(value = "/orderDetail",method = RequestMethod.POST)
     public Result getOrderDetailsEntities(HttpServletRequest request,HttpServletResponse response) throws InterruptedException, ServletException, IOException {
         LoginUserEntity entity = (LoginUserEntity) request.getSession().getAttribute("entity");
+        if (entity == null){
+            return new ErrorResponseBody("USER_DETAILS_UNDEFINED", ErrorResponseBody.ErrorCode.USER_DETAILS_UNDEFINED.getCode());
+        }
         String orderCode = (String) redisClient.getObjectOfString("OrderCode:"+entity.getYzm());
         if (orderCode == null){
             request.getRequestDispatcher("login.html").forward(request,response);
@@ -182,7 +190,7 @@ public class BusinessController {
      */
     @RequestMapping(value = "/commodity",method = {RequestMethod.POST,RequestMethod.GET})
     public String getCommodityHeaderEntityById(HttpServletRequest request){
-        Map id = (Map) request.getSession().getAttribute("forward");
+        Map id = (Map) request.getSession().getAttribute("forward2");
         return commodityRemoteApi.getCommodityHeaderEntityById((String) id.get("id"));
     }
 
@@ -231,6 +239,9 @@ public class BusinessController {
         /**
          * 用户信息
          */
+        if (entity == null){
+            return null;
+        }
         UserDetailsEntity userDetailsEntity = userRemoteApi.userDetailsEntity(entity);
         AbstractResponseBody rsp = shopRemoteApi.getShopByIdWithAbstractResponseBody((String) map.get("shop"));
         /**
@@ -273,5 +284,16 @@ public class BusinessController {
                 );
         OrderModel orderModel = new OrderModel(orderEntity,orderDetailsEntity);
         return orderRemoteApi.addOrderHeader(orderModel);
+    }
+
+    @RequestMapping(value = "/orderList",method = RequestMethod.GET)
+    public List<OrderEntity> getOrderList(HttpServletRequest request){
+        if (request.getSession().getAttribute("entity") == null){
+            return new ArrayList<>();
+        }else{
+            LoginUserEntity entity = (LoginUserEntity)request.getSession().getAttribute("entity");
+            String entityObj = JSON.toJSONString(entity);
+            return orderRemoteApi.getOrderList(JSONObject.toJavaObject(JSONObject.parseObject(entityObj),Map.class));
+        }
     }
 }

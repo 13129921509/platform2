@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component
 @TableName("shop_header")
-public class RegistryShopEntity {
+public class RegistryShopEntity  implements Serializable {
     //    @TableId(value = "id")
 //    Long id;
 

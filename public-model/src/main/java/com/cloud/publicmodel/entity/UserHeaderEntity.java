@@ -3,8 +3,10 @@ package com.cloud.publicmodel.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("user_header")
-public class UserHeaderEntity {
+public class UserHeaderEntity  implements Serializable {
     @TableField("username")
     String username;
     @TableField("passwords")

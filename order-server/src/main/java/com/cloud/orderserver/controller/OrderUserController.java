@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
@@ -53,5 +55,10 @@ public class OrderUserController {
             e.printStackTrace();
         }
         return "0";
+    }
+    @RequestMapping(value = "/order",method = RequestMethod.GET)
+    public List<OrderEntity> getOrderList(@RequestBody Map<String,String> map){
+        LambdaQueryWrapper<OrderEntity> wrapper = new LambdaQueryWrapper<OrderEntity>();
+       return  orderUserMapper.getOrderListByUsers(wrapper.eq(OrderEntity::getUserEmail,map.get("email")));
     }
 }

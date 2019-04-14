@@ -70,7 +70,6 @@ function pullList() {
 		child_.children[3].innerHTML="最低价:"+array[item]["floorPrice"];
 		child_.addEventListener("click",function (evt) {
 			window.open("/forward/xiangqing?id="+evt.currentTarget.getAttribute("id"));
-			alert(123);
 		},true);
 		/**
 		 * 显示图片

@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("shop_detail")
-public class ShopDetailEntity{
+public class ShopDetailEntity implements Serializable {
     @TableId("id")
     String id;
 

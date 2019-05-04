@@ -32,7 +32,7 @@ public class OrderUserController {
     @RequestMapping("/orderCode/{orderCode}")
     public List<OrderDetailsEntity> getOrderDetailsEntities(@PathVariable("orderCode") String orderCode){
         LambdaQueryWrapper<OrderDetailsEntity> wrapper = new LambdaQueryWrapper<OrderDetailsEntity>();
-        List<OrderDetailsEntity> list = orderDetailsUserMapper.getOrderDetailsEntities(wrapper.eq(OrderDetailsEntity::getOrderCode,orderCode));
+        List<OrderDetailsEntity> list = orderDetailsUserMapper.getOrderDetailsEntities(wrapper.eq(OrderDetailsEntity::getOrderCode,orderCode),orderCode);
         return list;
 
     }

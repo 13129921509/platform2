@@ -1,6 +1,7 @@
 window.onload = function () {
     before1();
     userCenter();
+    clickEdit();
 }
 function userCenter() {
     var html = $.ajax({
@@ -32,8 +33,8 @@ function before1() {
         dataType:"json",
         async: false
     }).responseText;
-    if(JSON.parse(html).account == undefined){
-
+    if(html == ""){
+        return ;
     }else{
         window.accound = JSON.parse(html);
     }
@@ -52,4 +53,33 @@ function before1() {
     },true)
     // src = document.createTextNode(window.accound.accound);
 
+}
+
+/**
+ * 弹窗事件
+ * 单击任何一个编辑字段 弹出相应的输入框然后操作
+ */
+function clickEdit() {
+    edit = document.getElementsByClassName("edit");
+    for (e in edit){
+        edit[e].onclick = function (e) {
+            e = e.currentTarget;
+            cs = e.parentElement.parentElement.children[0].innerHTML;
+            cs2 = e.parentElement.parentElement.children[1].getAttribute("name");
+
+            email = document.getElementsByName("email")[0].innerText;
+            var answer = prompt("请输入你的新" + cs);
+            if (answer) {
+                ///edit/{email}
+                var html = $.ajax({
+                    type: "POST",
+                    url: "/edit/"+email+"?cs=" + cs2 + "&value=" + answer,
+                    contentType: "application/json",
+                    dataType: "json",
+                    async: false
+                }).responseText;
+                console.log(html);
+            }
+        };
+    };
 }

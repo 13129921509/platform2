@@ -85,6 +85,11 @@ public class ErrorResponseBody implements Result,Serializable {
          * 用户已存在
          */
         USER_ALREADY_EXIST(40001),
+
+        /**
+         * 遭遇莫名错误
+         */
+        INEXPLICABLE_ERROR(10000)
         ;
 
         private int code;

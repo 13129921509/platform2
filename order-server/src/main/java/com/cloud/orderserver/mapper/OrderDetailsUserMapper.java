@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public interface OrderDetailsUserMapper extends BaseMapper<OrderDetailsEntity> {
 
-    @Cacheable(cacheNames = {"OrderListByUsers"},key = "methodName +#p0")
+    @Cacheable(cacheNames = {"OrderListByUsers"},key = "#p1")
     @Select("SELECT commodityCode,commodityName,number,price,orderCode FROM order_details ${ew.customSqlSegment} ")
-    public List<OrderDetailsEntity> getOrderDetailsEntities(@Param(Constants.WRAPPER)Wrapper<OrderDetailsEntity> wrapper);
+    public List<OrderDetailsEntity> getOrderDetailsEntities(@Param(Constants.WRAPPER)Wrapper<OrderDetailsEntity> wrapper,String orderCode);
 }

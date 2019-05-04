@@ -296,4 +296,14 @@ public class BusinessController {
             return orderRemoteApi.getOrderList(JSONObject.toJavaObject(JSONObject.parseObject(entityObj),Map.class));
         }
     }
+
+
+    @RequestMapping(value = "/edit/{email}",method = RequestMethod.POST)
+    public String edit(@PathVariable(value = "email") String email,@RequestParam(name = "cs") String cs,@RequestParam(name = "value") String value){
+        Map map = new HashMap();
+        map.put("cs",cs);
+        map.put("value",value);
+        Result result = businessRemoteApi.judgeUser(email,map);
+        return JSON.toJSONString(result);
+    }
 }

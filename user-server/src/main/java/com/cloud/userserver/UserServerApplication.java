@@ -13,7 +13,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 @EnableCaching
 @EnableAspectJAutoProxy(proxyTargetClass = true)
@@ -23,16 +29,27 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan("com.cloud.userserver.mapper")
 @ComponentScan(basePackages = {"com.cloud.publicmodel.*","com.cloud.userserver.*"})
-public class UserServerApplication {
+public class UserServerApplication implements TransactionManagementConfigurer {
+    @Resource(name = "datasourceManager")
+    private PlatformTransactionManager datasourceManager;
+
     @Bean
     @Profile({"default"})
     public PerformanceInterceptor performanceInterceptor(){
         return new PerformanceInterceptor();
     }
 
+    @Bean("datasourceManager")
+    public PlatformTransactionManager datasourceManager(DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
+    }
     public static void main(String[] args) {
         new UserDao().login();
         SpringApplication.run(UserServerApplication.class, args);
     }
 
+    @Override
+    public PlatformTransactionManager annotationDrivenTransactionManager() {
+        return datasourceManager;
+    }
 }

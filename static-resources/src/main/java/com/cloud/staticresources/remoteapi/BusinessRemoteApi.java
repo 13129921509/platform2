@@ -2,6 +2,7 @@ package com.cloud.staticresources.remoteapi;
 
 import com.cloud.publicmodel.entity.LoginUserEntity;
 import com.cloud.publicmodel.entity.UserDetailsEntity;
+import com.cloud.publicmodel.entity.response.AbstractResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.session.HttpClient;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -25,5 +26,5 @@ public interface BusinessRemoteApi {
     UserDetailsEntity userDetailsEntity(@RequestBody LoginUserEntity entity);
 
     @RequestMapping(value = "/edit/{email}",method = RequestMethod.PUT)
-    Result judgeUser(@PathVariable("email") String email, @RequestBody Map map);
+    AbstractResponseBody judgeUser(@PathVariable("email") String email, @RequestBody Map map);
 }

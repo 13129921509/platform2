@@ -66,7 +66,7 @@ public class UserBisinessController {
     @Transactional
     @RequestMapping(value = "/edit/{email}",method = RequestMethod.PUT)
     public AbstractResponseBody judgeUser(@PathVariable String email,@RequestBody Map map){
-        Field [] fields = RegistryUserEntity.class.getFields();
+        Field [] fields = RegistryUserEntity.class.getDeclaredFields();
         Field judgeFiled = null;
         for (Field f : fields){
             if (f.getAnnotationsByType(TableField.class) != null){
@@ -76,15 +76,18 @@ public class UserBisinessController {
             }
         }
         if (judgeFiled != null){
-            if (judgeFiled.getAnnotation(TableField.class).value() == "password"){
+            if (judgeFiled.getAnnotation(TableField.class).value().equals("password")){
                 userDetailMapper.update(new UserDetailsEntity(),
                         new LambdaUpdateWrapper<UserDetailsEntity>().setSql("password = "+ map.get("value")).eq(UserDetailsEntity::getEmail,email));
-            }else if (judgeFiled.getAnnotation(TableField.class).value() == "email"){
+            }else if (judgeFiled.getAnnotation(TableField.class).value().equals("email")){
                 userDetailMapper.update(new UserDetailsEntity(),
                         new LambdaUpdateWrapper<UserDetailsEntity>().setSql("email = "+ map.get("value")).eq(UserDetailsEntity::getEmail,email));
-            }else if (judgeFiled.getAnnotation(TableField.class).value() == "telephone"){
+            }else if (judgeFiled.getAnnotation(TableField.class).value().equals("telephone")){
                 userDetailMapper.update(new UserDetailsEntity(),
                         new LambdaUpdateWrapper<UserDetailsEntity>().setSql("telephone = "+ map.get("value")).eq(UserDetailsEntity::getEmail,email));
+            }else if (judgeFiled.getAnnotation(TableField.class).value().equals("username")){
+                userDetailMapper.update(new UserDetailsEntity(),
+                        new LambdaUpdateWrapper<UserDetailsEntity>().setSql("username = "+ map.get("value")).eq(UserDetailsEntity::getEmail,email));
             }
         }
         int result = userHeaderMapper.update(new RegistryUserEntity(),new LambdaUpdateWrapper<RegistryUserEntity>().setSql(map.get("cs")+" = "+map.get("value")).eq(RegistryUserEntity::getEmail,email));

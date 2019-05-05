@@ -303,7 +303,7 @@ public class BusinessController {
         Map map = new HashMap();
         map.put("cs",cs);
         map.put("value",value);
-        Result result = businessRemoteApi.judgeUser(email,map);
+        AbstractResponseBody result = businessRemoteApi.judgeUser(email,map);
         return JSON.toJSONString(result);
     }
 }

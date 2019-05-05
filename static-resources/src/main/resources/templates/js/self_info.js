@@ -78,6 +78,15 @@ function clickEdit() {
                     dataType: "json",
                     async: false
                 }).responseText;
+                if (result != ""){
+                    result = JSON.parse(html);
+                    if (result.code != undefined){
+                        if (result.code == 200){
+                            alert("success!!!");
+                            window.location.reload();
+                        }
+                    }
+                }
                 console.log(html);
             }
         };

@@ -3,13 +3,16 @@ package com.cloud.staticresources.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.publicmodel.client.RedisClient;
+import com.cloud.publicmodel.contans.ExceptionConstants;
 import com.cloud.publicmodel.entity.*;
 import com.cloud.publicmodel.entity.response.AbstractResponseBody;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
+import com.cloud.publicmodel.exception.ConcurrentExcessException;
 import com.cloud.publicmodel.session.HttpClient;
 import com.cloud.staticresources.remoteapi.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,9 @@ public class BusinessController {
 
     @Autowired
     UserLoginRemoteApi userRemoteApi;
+
+    @Autowired
+    CommodityFallbackRemoteApi commodityFallbackRemoteApi;
     /**
      * 获得用户独有的key，可保持并发操作的安全性
      * @param request
@@ -305,5 +311,24 @@ public class BusinessController {
         map.put("value",value);
         AbstractResponseBody result = businessRemoteApi.judgeUser(email,map);
         return JSON.toJSONString(result);
+    }
+
+    /**
+     * 需要增加限制功能 否则会加大内存服务器的压力
+     * 1 在前台代码增加延迟时间
+     * 2 后台限制请求数 暂时采用熔断机制
+     * @param key
+     * @return
+     */
+    @RequestMapping(value = "/search/{key}")
+    public String search(@PathVariable(value = "key") String key) throws IOException, ConcurrentExcessException {
+        ObjectMapper mapper = new ObjectMapper();
+        String res = commodityFallbackRemoteApi.search(key);
+        AbstractResponseBody responseBody = mapper.readValue(res,AbstractResponseBody.class);
+        if (Integer.valueOf(responseBody.getCode()).equals(ExceptionConstants.ConcurrentExcessException_Code)){
+            throw new ConcurrentExcessException(String.valueOf(ExceptionConstants.ConcurrentExcessException_Code),
+                    ExceptionConstants.ConcurrentExcessException_Inner_Message);
+        }
+        return res;
     }
 }

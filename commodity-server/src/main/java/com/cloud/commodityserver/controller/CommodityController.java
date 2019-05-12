@@ -9,6 +9,7 @@ import com.cloud.commodityserver.mapper.CommodityChildMapper;
 import com.cloud.commodityserver.mapper.CommodityImgMapper;
 import com.cloud.commodityserver.mapper.CommodityMapper;
 import com.cloud.publicmodel.client.RedisClient;
+import com.cloud.publicmodel.contans.ExceptionConstants;
 import com.cloud.publicmodel.entity.CommodityChildEntity;
 import com.cloud.publicmodel.entity.CommodityHeaderEntity;
 import com.cloud.publicmodel.entity.CommodityImgEntity;
@@ -16,7 +17,11 @@ import com.cloud.publicmodel.entity.response.AbstractResponseBody;
 import com.cloud.publicmodel.entity.response.ErrorResponseBody;
 import com.cloud.publicmodel.entity.response.Result;
 import com.cloud.publicmodel.entity.response.SuccessResponseBody;
+import com.cloud.publicmodel.exception.ConcurrentExcessException;
+import com.cloud.publicmodel.util.ConcurrentAction;
 import com.cloud.publicmodel.util.FileUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +50,10 @@ public class CommodityController {
 
     @Autowired
     RedisClient redisClient;
+
+    @Autowired
+    volatile ConcurrentAction concurrentAction;
+
     /**
      * 通过child表中的commodityCode来获得header表中的id
      * 拿到id去img表中获得所有图片的信息
@@ -259,5 +268,34 @@ public class CommodityController {
         LambdaQueryWrapper<CommodityChildEntity> wrapper = new LambdaQueryWrapper<>();
         CommodityChildEntity entity =  commodityChildMapper.getCommodityChildEntityByOne(wrapper.eq(CommodityChildEntity::getCommodityCode,shopCode));
         return entity;
+    }
+
+    /**
+     * 获得搜索的商品数据
+     */
+    @RequestMapping(value = "/search/{key}",method = RequestMethod.GET)
+    public String search(@PathVariable(value = "key") String key) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Page<CommodityHeaderEntity> page = new Page<CommodityHeaderEntity>(Integer.valueOf(1), 10);
+        QueryWrapper<CommodityHeaderEntity> headerWrapper = new QueryWrapper<>();
+        List<CommodityHeaderEntity> list = commodityMapper.getCommodityHeaderEntityIPage(
+                page.setCurrent(1),
+                headerWrapper.like("commodityName",key)
+                );
+        return mapper.writeValueAsString(new AbstractResponseBody("success",200,list));
+    }
+
+    /**
+     * 仅在aop织入方法时执行，一般不调用
+     * @param e 返回的异常
+     * @return
+     */
+    private String search(Class e) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        if (e == ConcurrentExcessException.class){
+            AbstractResponseBody responseBody = new AbstractResponseBody(ExceptionConstants.ConcurrentExcessException_Inner_Message,ExceptionConstants.ConcurrentExcessException_Code,null);
+            return mapper.writeValueAsString(responseBody);
+        }
+        return null;
     }
 }

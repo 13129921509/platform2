@@ -1,5 +1,6 @@
 package config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.IPing;
 import com.netflix.loadbalancer.PingUrl;
@@ -11,5 +12,10 @@ public class UserRegistryConfig {
     @Bean
     public IPing ribbonPing(IClientConfig config) {
         return new PingUrl();
+    }
+
+    @Bean
+    ObjectMapper objectMapper(){
+        return new ObjectMapper();
     }
 }

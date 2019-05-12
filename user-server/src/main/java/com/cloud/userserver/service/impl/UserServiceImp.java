@@ -47,7 +47,8 @@ public class UserServiceImp {
     public String login(LoginUserEntity entity, HttpServletRequest request) throws InterruptedException {
         LambdaQueryWrapper<RegistryUserEntity> wrapper = new LambdaQueryWrapper<>();
         int count = userMapper.login(wrapper.eq(RegistryUserEntity::getEmail,entity.getEmail())
-                .eq(RegistryUserEntity::getPassword,entity.getPassword()));
+                .eq(RegistryUserEntity::getPassword,entity.getPassword()),
+                entity.getEmail());
         if (count != 1){
             Result result = new ErrorResponseBody("账户与密码不匹配",ErrorResponseBody.ErrorCode.ACCOUNT_DOES_NOT_MATCH_PASSWORD.getCode());
             String jsonObject = JSONObject.toJSONString(result);

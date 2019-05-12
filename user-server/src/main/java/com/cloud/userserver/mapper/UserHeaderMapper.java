@@ -23,7 +23,7 @@ public interface UserHeaderMapper extends BaseMapper<RegistryUserEntity>{
     @Update("update from user_header ${ew.customSqlSegment}")
     void addRegistryUser(@Param(Constants.WRAPPER) Wrapper<RegistryUserEntity> wrapper);
 
-    @Cacheable(cacheNames = {"Login"},key = "methodName +#p0")
+    @Cacheable(cacheNames = {"Login"},key = "methodName +#p1")
     @Select("select count(*) from user_header ${ew.customSqlSegment}")
-    int login(@Param(Constants.WRAPPER) Wrapper<RegistryUserEntity> wrapper);
+    int login(@Param(Constants.WRAPPER) Wrapper<RegistryUserEntity> wrapper,String email);
 }

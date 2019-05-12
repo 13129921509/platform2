@@ -43,7 +43,7 @@ header .top .right .gouwuche:hover{color:#000;background: #666;}
 .banner_x .nav ul li a{display:inline-block;color: #000;font-size: 16px;padding: 0 10px;}
 .banner_x .nav ul li a:hover{color: rgb(255,103,0); }
 .banner_x .search{width: 308px;height: 100px;line-height: 100px;}
-.banner_x .search .text{width: 250px;height:50px;line-height: 50px;font-size: 12px;margin-top: 25px;border:1px solid #ccc;}
+.banner_x .search .text{width: 250px;height:50px;line-height: 50px;font-size: 12px;margin-top: 25px;border:1px solid #ccc;position: relative;}
 .banner_x .search .text:hover{border-color: #ff6700;}
 .banner_x .search .text .shuru{border: none;width: 250px;height: 50px;}
 .banner_x .search .submit{width: 50px;height:50px;line-height: 50px;text-align:center;font-size: 12px;margin-top: 25px;border:1px solid #ccc;}
